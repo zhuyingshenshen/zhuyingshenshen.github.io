@@ -205,6 +205,11 @@
       
       
       
+        <a data-aos="zoom-in" href="/2024/11/23/%E7%AC%AC%E4%BA%8C%E7%AF%87/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/2024/11/23/%E7%AC%AC%E4%BA%8C%E7%AF%87/" itemprop="commentCount"></span>
+          Comments
+        </a>
+      
       
       
       
@@ -247,6 +252,8 @@
 
 
 </article>
+
+  <section id="comments" class="vcomment" data-aos="fade-up"></section>
 
 
 
@@ -548,6 +555,34 @@
         }
       </script>
       
+  
+<script src="https://npm.webcache.cn/valine@1.5.1/dist/Valine.min.js" integrity="sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE+s5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn" crossorigin="anonymous" data-pjax></script>
+
+  <script data-pjax>
+    var GUEST_INFO = ['nick', 'mail', 'link'];
+    var guest_info = 'nick,mail,link'.split(',').filter((item) => {
+      return GUEST_INFO.indexOf(item) > -1
+    });
+    var recordIP = JSON.parse('true');
+    var highlight = JSON.parse('true');
+    var visitor = JSON.parse('false');
+
+    new Valine({
+      el: '.vcomment',
+      appId: "pe1tLrXKeT4Uikj7EGypMYpc-gzGzoHsz",
+      appKey: "mrjQvd77jFLFaqNgJwrpUbOn",
+      placeholder: "Just go go",
+      pageSize: '10',
+      avatar: 'monsterid',
+      lang: 'zh-cn',
+      recordIP: recordIP,
+      highlight: highlight,
+      visitor: visitor,
+      requiredFields: guest_info,
+      path: window.location.pathname
+    });
+  </script>
+
 
 
 
