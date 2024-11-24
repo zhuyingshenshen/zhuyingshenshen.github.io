@@ -981,7 +981,7 @@ a {
 .article-entry h5 a:hover,
 .article-entry h6 a:hover {
   opacity: 0.8;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 .article-entry h2 {
   margin-bottom: 40px;
