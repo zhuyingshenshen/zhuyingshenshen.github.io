@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-11-26T10:17:23.768Z</updated>
+  <updated>2024-11-27T12:25:04.455Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>第六篇</title>
+    <link href="http://example.com/2024/11/27/%E7%AC%AC%E5%85%AD%E7%AF%87/"/>
+    <id>http://example.com/2024/11/27/%E7%AC%AC%E5%85%AD%E7%AF%87/</id>
+    <published>2024-11-27T12:25:04.344Z</published>
+    <updated>2024-11-27T12:25:04.455Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天上一整天的课，啥事没干</p>]]></content>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天上一整天的课，啥事没干&lt;/p&gt;
+</summary>
+        
+      
+    
+    
+    
+    <category term="日记类的" scheme="http://example.com/categories/%E6%97%A5%E8%AE%B0%E7%B1%BB%E7%9A%84/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>第五篇</title>
