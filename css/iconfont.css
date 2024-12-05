@@ -115,82 +115,6 @@
   font-family: "iconfont";
   content: "\e630";
 }
-.icon-github:before {
-  font-family: "iconfont";
-  content: "\e619";
-}
-.icon-google:before {
-  content: "\e611";
-}
-.icon-facebook:before {
-  content: "\e60e";
-}
-.icon-twitter:before {
-  content: "\e62a";
-}
-.icon-instagram:before {
-  content: "\e615";
-}
-.icon-linkedin:before {
-  content: "\e614";
-}
-.icon-pinterest:before {
-  content: "\e61a";
-}
-.icon-youtube:before {
-  content: "\e62d";
-}
-.icon-vimeo:before {
-  content: "\e629";
-}
-.icon-flickr:before {
-  content: "\e612";
-}
-.icon-dribbble:before {
-  content: "\e610";
-}
-.icon-behance:before {
-  content: "\e602";
-}
-.icon-bilibili:before {
-  content: "\e603";
-}
-.icon-weibo:before {
-  content: "\e62c";
-}
-.icon-zhihu:before {
-  content: "\e62e";
-}
-.icon-reddit:before {
-  content: "\e61c";
-}
-.icon-tumblr:before {
-  content: "\e625";
-}
-.icon-medium:before {
-  content: "\e616";
-}
-.icon-deviantart:before {
-  content: "\e60b";
-}
-.icon-stackoverflow:before {
-  content: "\e620";
-}
-.icon-keybase:before {
-  content: "\e61e";
-}
-.icon-telegram:before {
-  content: "\e623";
-}
-.icon-discord:before {
-  content: "\e60d";
-}
-.icon-steam:before {
-  content: "\e624";
-}
-.icon-email:before {
-  content: "\e63c";
-}
 .sidebar-btn-wrapper .sidebar-toc-btn:before {
   font-family: "iconfont";
   content: "\e633";
@@ -218,4 +142,7 @@
 .icon-taichi:before {
   font-family: "iconfont";
   content: "\e62b";
+}
+.icon {
+  font-family: "iconfont";
 }

@@ -30,12 +30,12 @@ var scrollIntoViewAndWait = (element) => {
 _$$(
   ".article-entry h1>a, .article-entry h2>a, .article-entry h3>a, .article-entry h4>a, .article-entry h5>a, .article-entry h6>a"
 ).forEach((element) => {
-  if (window.icon_font) {
+  if (window.REIMU_CONFIG.icon_font) {
     // iconfont
-    element.innerHTML = "&#xe635;";
+    element.innerHTML = window.REIMU_CONFIG.anchor_icon ? `&#x${window.REIMU_CONFIG.anchor_icon};` : "&#xe635;";
   } else {
     // fontawesome
-    element.innerHTML = "&#xf292;";
+    element.innerHTML = window.REIMU_CONFIG.anchor_icon ? `&#x${window.REIMU_CONFIG.anchor_icon};` : "&#xf292;";
   }
 });
 
@@ -53,7 +53,9 @@ _$$(".article-entry img").forEach((element) => {
     a.dataset.pswpWidth = element.naturalWidth;
     a.dataset.pswpHeight = element.naturalHeight;
   } else {
-    console.warn("Image naturalWidth and naturalHeight cannot be obtained right now, fallback to onload.");
+    console.warn(
+      "Image naturalWidth and naturalHeight cannot be obtained right now, fallback to onload."
+    );
     element.onload = () => {
       a.dataset.pswpWidth = element.naturalWidth;
       a.dataset.pswpHeight = element.naturalHeight;
@@ -71,25 +73,25 @@ window.dispatchEvent(new Event("lightbox:ready"));
 // Mobile nav
 var isMobileNavAnim = false;
 
-document
-  .getElementById("main-nav-toggle")
+_$("#main-nav-toggle")
   .off("click")
-  .on("click", function () {
+  .on("click", () => {
     if (isMobileNavAnim) return;
     isMobileNavAnim = true;
     document.body.classList.toggle("mobile-nav-on");
+    _$("#mask").classList.remove("hide");
     setTimeout(() => {
       isMobileNavAnim = false;
-    }, 200);
+    }, 300);
   });
 
-document
-  .getElementById("mask")
+_$("#mask")
   ?.off("click")
-  .on("click", function () {
+  .on("click", () => {
     if (isMobileNavAnim || !document.body.classList.contains("mobile-nav-on"))
       return;
     document.body.classList.remove("mobile-nav-on");
+    _$("#mask").classList.add("hide");
   });
 
 _$$(".sidebar-toc-btn").forEach((element) => {
@@ -150,7 +152,7 @@ _$$(".article-entry img").forEach((element) => {
 // to top
 var sidebarTop = _$(".sidebar-top");
 if (sidebarTop) {
-  sidebarTop.style.transition = "opacity 1s";
+  sidebarTop.style.transition = "all .3s";
   sidebarTop.off("click").on("click", () => {
     window.scrollTo({
       top: 0,
@@ -159,7 +161,7 @@ if (sidebarTop) {
   });
   if (document.documentElement.scrollTop < 10) {
     sidebarTop.style.opacity = 0;
-  }  
+  }
 }
 
 var __sidebarTopScrollHandler;
@@ -185,6 +187,7 @@ _$$(".toc li").forEach((element) => {
     if (isMobileNavAnim || !document.body.classList.contains("mobile-nav-on"))
       return;
     document.body.classList.remove("mobile-nav-on");
+    _$("#mask").classList.add("hide");
   });
 });
 
@@ -194,6 +197,7 @@ _$$(".sidebar-menu-link-dummy").forEach((element) => {
       return;
     setTimeout(() => {
       document.body.classList.remove("mobile-nav-on");
+      _$("#mask").classList.add("hide");
     }, 200);
   });
 });
@@ -260,8 +264,7 @@ function tocInit() {
     }
     // Scrolling to center active TOC element if TOC content is taller than viewport.
     if (
-      !document
-        .querySelector(".sidebar-toc-sidebar")
+      !_$(".sidebar-toc-sidebar")
         .classList.contains("hidden")
     ) {
       const tocWrapper = _$(".sidebar-toc-wrapper");
@@ -321,8 +324,10 @@ window
   });
 tocInit();
 
-_$('.sponsor-button-wrapper')?.off('click').on('click', () => {
-  _$('.sponsor-button-wrapper')?.classList.toggle('active');
-  _$('.sponsor-tip')?.classList.toggle('active');
-  _$('.sponsor-qr')?.classList.toggle('active');
-});
+_$(".sponsor-button-wrapper")
+  ?.off("click")
+  .on("click", () => {
+    _$(".sponsor-button-wrapper")?.classList.toggle("active");
+    _$(".sponsor-tip")?.classList.toggle("active");
+    _$(".sponsor-qr")?.classList.toggle("active");
+  });
