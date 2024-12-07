@@ -481,7 +481,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Mulish','Noto Serif SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: 'Mulish','Noto Serif SC', '-apple-system','PingFang SC','Microsoft YaHei','sans-serif';
   font-weight: 700;
 }
 input,
@@ -507,7 +507,7 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   text-size-adjust: 100%;
-  font-family: 'Mulish','Noto Serif SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: 'Mulish','Noto Serif SC', '-apple-system','PingFang SC','Microsoft YaHei','sans-serif';
   transition: background 1s;
 }
 body ::selection {
@@ -647,7 +647,7 @@ a {
   top: -80px;
 }
 #header-title {
-  font-family: 'Mulish','Noto Serif SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: 'Mulish','Noto Serif SC', '-apple-system','PingFang SC','Microsoft YaHei','sans-serif';
   font-weight: 700;
   text-align: center;
   position: absolute;
@@ -1732,7 +1732,7 @@ a {
 .article-entry pre,
 .article-entry code,
 .article-entry kbd {
-  font-family: Menlo, Monaco, Consolas, monospace;
+  font-family: 'Menlo','Monaco','Consolas','monospace';
   font-size: 95%;
   transition: 0.3s;
 }
@@ -1811,7 +1811,7 @@ a {
 }
 .article-entry .gist .gist-file {
   border: none;
-  font-family: Menlo, Monaco, Consolas, monospace;
+  font-family: 'Menlo','Monaco','Consolas','monospace';
   margin: 0;
 }
 .article-entry .gist .gist-file .gist-data {
@@ -1834,7 +1834,7 @@ a {
 .article-entry .gist .gist-file .gist-meta {
   background: var(--highlight-background);
   color: var(--highlight-comment);
-  font: 0.85em 'Mulish','Noto Serif SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font: 0.85em 'Mulish','Noto Serif SC', '-apple-system','PingFang SC','Microsoft YaHei','sans-serif';
   text-shadow: 0 0;
   padding: 0;
   margin-top: 1em;
@@ -2281,7 +2281,7 @@ pre .javascript .function {
 .sidebar-author .sidebar-author-name {
   font-weight: bold;
   font-size: 20px;
-  color: #f77;
+  color: var(--red-2);
   margin: 10px;
 }
 .sidebar-author .sidebar-description {
