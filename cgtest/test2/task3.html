@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>Chap2 Demo Tessellation </title>
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        #version 300 es
+        in vec4 vPosition;
+        void main(){
+            gl_Position = vPosition;
+        }
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        #version 300 es
+        precision mediump float;
+        out vec4 fColor;
+        void main(){
+            fColor = vec4(1.0, 0.0, 0.0, 1.0);
+        }
+    </script>
+
+    <script type="text/javascript" src="common/webgl-utils.js"></script>
+    <script type="text/javascript" src="common/initShaders.js"></script>
+    <script type="text/javascript" src="common/gl-matrix-min.js"></script>
+
+    <script type="text/javascript" src="js/triangle-tessa.js"></script>
+</head>
+
+<body>
+    <h2>Triangle Tessellation</h2>
+    <div>
+        <label for="levelInputTessa">输入层次(0-7):</label>
+        <input type="number" id="levelInputTessa" min="0" max="7" value="0">
+        <button id="drawButtonTessa">绘制</button>
+    </div>
+    <canvas id="gl-canvas" width="600" height="600">你的浏览器不支持HTML5 canvas元素</canvas>
+</body>
+
+</html>

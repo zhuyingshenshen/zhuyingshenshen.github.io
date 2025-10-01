@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>Chap2 Demo Tessellation </title>
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        #version 300 es
+        in vec4 vPosition;
+        uniform float uTheta;
+        void main() {
+            // 计算点到原点的距离
+            float d = length(vPosition.xy);
+            // 根据距离计算旋转角度（弧度）
+            float angle = uTheta * d;
+            // 绕 Z 轴旋转的变换矩阵
+            mat2 rotationMatrix = mat2(
+                cos(angle), -sin(angle),
+                sin(angle), cos(angle)
+            );
+            // 应用旋转变换
+            vec2 rotatedPosition = rotationMatrix * vPosition.xy;
+            gl_Position = vec4(rotatedPosition, vPosition.zw);
+        }
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        #version 300 es
+        precision mediump float;
+        out vec4 fColor;
+        void main() {
+            fColor = vec4(1.0, 0.0, 0.0, 1.0);
+        }
+    </script>
+
+    <!-- 引入本地工具脚本 -->
+    <script type="text/javascript" src="common/webgl-utils.js"></script>
+    <script type="text/javascript" src="common/initShaders.js"></script>
+    <script type="text/javascript" src="common/gl-matrix-min.js"></script>
+
+    <!-- 引入自定义 JS 文件 -->
+    <script type="text/javascript" src="js/triangle-tessa2.js"></script>
+</head>
+
+<body>
+    <h2>Triangle Tessellation (Task e)</h2>
+    <div>
+        <label for="levelInputTessa">输入层次(0-7):</label>
+        <input type="number" id="levelInputTessa" min="0" max="7" value="0">
+        <label for="rotationInput">旋转角度(度):</label>
+        <input type="number" id="rotationInput" value="60">
+        <button id="drawButtonTessa">绘制</button>
+    </div>
+    <canvas id="gl-canvas" width="600" height="600">你的浏览器不支持HTML5 canvas元素</canvas>
+</body>
+
+</html>
