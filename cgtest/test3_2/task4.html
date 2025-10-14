@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+    <title>图形绘制与动画</title>
+    <!-- 立方体着色器 -->
+    <script id="cube-vs" type="x-shader/x-vertex">
+        #version 300 es
+        in vec4 vPosition;
+        in vec4 vColor;
+        out vec4 aColor;
+        uniform vec3 cubeTheta;       // 立方体旋转角度
+        uniform vec2 cubeTranslate;    // 立方体平移（点击位置）
+
+        void main() {
+            vec3 angles = radians(cubeTheta);
+            vec3 cost = cos(angles);
+            vec3 sint = sin(angles);
+
+            // 旋转矩阵（X→Y→Z）
+            mat4 rx = mat4(1.0, 0.0, 0.0, 0.0,
+                           0.0, cost.x, sint.x, 0.0,
+                           0.0, -sint.x, cost.x, 0.0,
+                           0.0, 0.0, 0.0, 1.0);
+            mat4 ry = mat4(cost.y, 0.0, -sint.y, 0.0,
+                           0.0, 1.0, 0.0, 0.0,
+                           sint.y, 0.0, cost.y, 0.0,
+                           0.0, 0.0, 0.0, 1.0);
+            mat4 rz = mat4(cost.z, sint.z, 0.0, 0.0,
+                           -sint.z, cost.z, 0.0, 0.0,
+                           0.0, 0.0, 1.0, 0.0,
+                           0.0, 0.0, 0.0, 1.0);
+            // 平移矩阵（基于点击位置）
+            mat4 trans = mat4(1.0, 0.0, 0.0, 0.0,
+                             0.0, 1.0, 0.0, 0.0,
+                             0.0, 0.0, 1.0, 0.0,
+                             cubeTranslate.x, cubeTranslate.y, 0.0, 1.0);
+
+            aColor = vColor;
+            gl_Position = trans * rz * ry * rx * vPosition;
+            gl_Position.z = -gl_Position.z; // 调整Z轴方向（WebGL默认右手坐标系）
+        }
+    </script>
+    <script id="cube-fs" type="x-shader/x-fragment">
+        #version 300 es
+        precision mediump float;
+        in vec4 aColor;
+        out vec4 fColor;
+        void main() { fColor = aColor; }
+    </script>
+
+    <!-- 正三角形着色器 -->
+    <script id="triangle-vs" type="x-shader/x-vertex">
+        #version 300 es
+        in vec4 vPosition;
+        in vec4 vColor;
+        out vec4 aColor;
+        uniform vec2 triTranslate;  // 三角形平移（点击位置）
+        uniform float triScale;     // 三角形缩放
+
+        void main() {
+            aColor = vColor;
+            // 先缩放再平移（避免平移后缩放导致位置偏移）
+            vec4 scaledPos = vec4(vPosition.xy * triScale, 0.0, 1.0);
+            gl_Position = vec4(scaledPos.xy + triTranslate, 0.0, 1.0);
+        }
+    </script>
+    <script id="triangle-fs" type="x-shader/x-fragment">
+        #version 300 es
+        precision mediump float;
+        in vec4 aColor;
+        out vec4 fColor;
+        void main() { fColor = aColor; }
+    </script>
+
+    <!-- 正方形着色器 -->
+    <script id="square-vs" type="x-shader/x-vertex">
+        #version 300 es
+        in vec4 vPosition;
+        in vec4 vColor;
+        out vec4 aColor;
+        uniform vec2 squareTranslate; // 正方形平移
+        uniform float squareTheta;    // 正方形旋转角度（弧度）
+
+        void main() {
+            aColor = vColor;
+            // 旋转矩阵（绕Z轴）
+            mat4 rot = mat4(cos(squareTheta), sin(squareTheta), 0.0, 0.0,
+                           -sin(squareTheta), cos(squareTheta), 0.0, 0.0,
+                           0.0, 0.0, 1.0, 0.0,
+                           0.0, 0.0, 0.0, 1.0);
+            // 平移矩阵
+            mat4 trans = mat4(1.0, 0.0, 0.0, 0.0,
+                             0.0, 1.0, 0.0, 0.0,
+                             0.0, 0.0, 1.0, 0.0,
+                             squareTranslate.x, squareTranslate.y, 0.0, 1.0);
+
+            gl_Position = trans * rot * vPosition;
+        }
+    </script>
+    <script id="square-fs" type="x-shader/x-fragment">
+        #version 300 es
+        precision mediump float;
+        in vec4 aColor;
+        out vec4 fColor;
+        void main() { fColor = aColor; }
+    </script>
+
+    <!-- 圆形着色器（用多边形逼近） -->
+    <script id="circle-vs" type="x-shader/x-vertex">
+        #version 300 es
+        in vec4 vPosition;
+        in vec4 vColor;
+        out vec4 aColor;
+        uniform vec2 circleTranslate; // 圆形平移
+        uniform float circleScale;    // 圆形缩放
+
+        void main() {
+            aColor = vColor;
+            vec4 scaledPos = vec4(vPosition.xy * circleScale, 0.0, 1.0);
+            gl_Position = vec4(scaledPos.xy + circleTranslate, 0.0, 1.0);
+        }
+    </script>
+    <script id="circle-fs" type="x-shader/x-fragment">
+        #version 300 es
+        precision mediump float;
+        in vec4 aColor;
+        out vec4 fColor;
+        void main() { fColor = aColor; }
+    </script>
+
+    <!-- 工具脚本（确保路径与你的GitHub仓库一致） -->
+    <script type="text/javascript" src="common/webgl-utils.js"></script>
+    <script type="text/javascript" src="common/initShaders.js"></script>
+    <script type="text/javascript" src="common/gl-matrix-min.js"></script>
+    
+    <script type="text/javascript" src="js/task4.js"></script>
+</head>
+
+<body>
+    <h1>图形绘制与动画</h1>
+    <canvas id="gl-canvas" width="800" height="600" style="border:1px solid #333;">
+        你的浏览器不支持HTML5 Canvas元素
+    </canvas>
+
+    <!-- 控制区域 -->
+    <div style="margin-top:10px;">
+        <button id="cubeBtn">选择：立方体（旋转）</button>
+        <button id="triangleBtn">选择：正三角形（缩放）</button>
+        <button id="squareBtn">选择：正方形（旋转）</button>
+        <button id="circleBtn">选择：圆形（平移）</button>
+        <button id="clearBtn">清空画布</button>
+    </div>
+    <div style="margin-top:5px;">
+        <label>圆形边数（越多越平滑）：</label>
+        <input type="range" id="circleSides" min="6" max="60" value="30">
+        <label>颜色选择：</label>
+        <input type="color" id="colorPicker" value="#ff0000">
+    </div>
+</body>
+
+</html>
