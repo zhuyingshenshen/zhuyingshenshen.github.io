@@ -1,5 +1,5 @@
   <!DOCTYPE html>
-  <html lang="en"  
+  <html lang="zh-CN"  
       data-theme-mode="auto"
   >
   <head>
@@ -7,7 +7,7 @@
   
   
   
-  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_4k4bc36ef96';window.REIMU_CONFIG.clipboard_tips = {"success":{"en":"Copy successfully (*^▽^*)"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = 'All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'http://example.com';</script>
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_4k4bc36ef96';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)","en":"Copy successfully (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","en":"Copy failed (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'http://example.com';window.REIMU_CONFIG.i18n_languages = ["en"];</script>
   <title>
     友情链接 | etovo
   </title>
@@ -23,7 +23,7 @@
 <meta property="og:url" content="http://example.com/friend/index.html">
 <meta property="og:site_name" content="etovo">
 <meta property="og:description" content="本站信息1234- name: etovo  url: https:&#x2F;&#x2F;zhuyingshenshen.github.io&#x2F;  desc: ovo  image: https:&#x2F;&#x2F;zhuyingshenshen.github.io&#x2F;avatar&#x2F;avatar.webp  申请方法 添加本站后，在本页留言，格式如下  123456&#96;&#96;&#96;yml- name: #您的名字  url: #您的网址  de">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/banner.webp">
 <meta property="article:published_time" content="2026-01-01T02:10:51.033Z">
 <meta property="article:modified_time" content="2026-01-01T02:10:51.033Z">
@@ -56,7 +56,7 @@
            M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
           </svg>
       </div>
-      <div class="loading-word">Loading...</div>
+      <div class="loading-word">少女祈祷中...</div>
     </div>
   </div>
   </div>
@@ -100,31 +100,78 @@
             <div class="main-nav-icon icon rotate">
                 &#xe62b;
             </div>
-          <span class="main-nav-link">Home</span>
+          <span class="main-nav-link">首页</span>
         </span>
         <a class="main-nav-link-wrap" href="/archives">
             <div class="main-nav-icon icon rotate">
                 &#xe62b;
             </div>
-          <span class="main-nav-link">Archives</span>
+          <span class="main-nav-link">归档</span>
         </span>
         <a class="main-nav-link-wrap" href="/about">
             <div class="main-nav-icon icon rotate">
                 &#xe62b;
             </div>
-          <span class="main-nav-link">About</span>
+          <span class="main-nav-link">关于</span>
         </span>
         <a class="main-nav-link-wrap" href="/friend">
             <div class="main-nav-icon icon rotate">
                 &#xe62b;
             </div>
-          <span class="main-nav-link">Friend</span>
+          <span class="main-nav-link">友链</span>
         </span>
     <a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
   </nav>
   <nav id="sub-nav" aria-label="Secondary navigation">
-      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed" aria-label="RSS Feed" target="_blank"></a>
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" aria-label="RSS 订阅" target="_blank"></a>
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索" aria-label="搜索"></a>
   </nav>
+    <nav id="i18n-nav" aria-label="Language selection">
+      <div class="custom-dropdown">
+        <div class="select-selected" id="select-selected" role="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language menu">
+          <span id="nav-language-btn" class="nav-icon" style="padding: 0 20px 0 0"></span>
+          <span id="selected-lang">简体中文</span>
+        </div>
+        <ul class="select-items" id="select-items" role="listbox" aria-label="Languages">
+            <li data-value="zh-CN" role="option" class="selected" aria-selected="true">简体中文</li>
+            <li data-value="en" role="option" aria-selected="false">English</li>
+        </ul>
+      </div>
+      <script>
+        var selectSelected = document.getElementById("select-selected");
+        var selectedLang = document.getElementById("selected-lang");
+        var selectItems = document.getElementById("select-items");
+        var selectOptions = selectItems.querySelectorAll("li");
+
+        selectSelected.addEventListener("click", () => {
+          selectItems.classList.toggle("show");
+          var expanded = selectSelected.getAttribute("aria-expanded") === "true";
+          selectSelected.setAttribute("aria-expanded", (!expanded).toString());
+        });
+
+        selectOptions.forEach((item) => {
+          item.addEventListener("click", () => {
+            const langMap = {};
+              langMap['zh-CN'] = '/friend/';
+              langMap['en'] = '/en/friend/';
+            selectedLang.textContent = item.textContent;
+            selectItems.classList.remove("show");
+            selectOptions.forEach((option) => {
+              option.classList.remove("selected");
+            });
+            item.classList.add("selected");
+            window.location = langMap[item.dataset.value];
+          });
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!event.target.closest(".custom-dropdown")) {
+            selectItems.classList.remove("show");
+            selectSelected.setAttribute("aria-expanded", "false");
+          }
+        });
+      </script>
+    </nav>
 </div>
 <header id="header" aria-label="Site header">
       <picture>
@@ -153,54 +200,72 @@
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>Post</div>
-    <div class="sidebar-state-number">3</div>
+    <div>文章</div>
+    <div class="sidebar-state-number">7</div>
   </div>
   <div class="sidebar-state-category">
-    <div>Category</div>
-    <div class="sidebar-state-number">1</div>
+    <div>分类</div>
+    <div class="sidebar-state-number">3</div>
   </div>
   <div class="sidebar-state-tag">
-    <div>Tag</div>
-    <div class="sidebar-state-number">1</div>
+    <div>标签</div>
+    <div class="sidebar-state-number">4</div>
   </div>
 </div>
 <div class="sidebar-social" >
 </div>
 <div class="sidebar-menu">
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
           <div class="sidebar-menu-icon icon rotate">
               &#xe62b;
           </div>
-        <div class="sidebar-menu-link">Home</div>
+        <div class="sidebar-menu-link">首页</div>
       </div>
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
           <div class="sidebar-menu-icon icon rotate">
               &#xe62b;
           </div>
-        <div class="sidebar-menu-link">Archives</div>
+        <div class="sidebar-menu-link">归档</div>
       </div>
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
           <div class="sidebar-menu-icon icon rotate">
               &#xe62b;
           </div>
-        <div class="sidebar-menu-link">About</div>
+        <div class="sidebar-menu-link">关于</div>
       </div>
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
           <div class="sidebar-menu-icon icon rotate">
               &#xe62b;
           </div>
-        <div class="sidebar-menu-link">Friend</div>
+        <div class="sidebar-menu-link">友链</div>
       </div>
 </div>
 
     </div>
   </div>
   <div class="sidebar-widget">
+        <div class="widget-wrapper">
+    <div class="widget-wrap" data-aos="fade-up">
+      <h3 class="widget-title">标签</h3>
+      <div class="widget">
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag" title="java">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag" title="技术">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag" title="日常">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E8%AE%B0/" rel="tag" title="日记">日记</a></li></ul>
+      </div>
+    </div>
+  </div>
+
+        <div class="widget-wrapper">
+    <div class="widget-wrap" data-aos="fade-up">
+      <h3 class="widget-title">标签云</h3>
+      <div class="widget tagcloud">
+        <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 20px;">技术</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;">日常</a> <a href="/tags/%E6%97%A5%E8%AE%B0/" style="font-size: 10px;">日记</a>
+      </div>
+    </div>
+  </div>
+
   </div>
   </div>
 </aside>
@@ -257,6 +322,10 @@
 
     </div>
     <footer class="article-footer">
+        <a data-aos="zoom-in" href="/friend/index.html#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/friend/" itemprop="commentCount"></span>
+          留言
+        </a>
       
       
     </footer>
@@ -264,6 +333,24 @@
   
 </article>
 
+  <section id="comments" data-aos="fade-up">
+    <div class="comment-header">
+        
+      <h2 class="comment-title">说些什么吧！</h2>
+      <div class="comment-selector">
+        <div class="comment-selector-wrap">
+            <div class="selector-item" data-selector="valine">
+              <span>valine</span>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="comment-content">
+          <div class="comment valine-comment" data-aos="fade-up"
+            id="valine-comment">
+          </div>
+    </div>
+  </section>
 
 </section>
         </div>
@@ -274,27 +361,23 @@
   <div id="footer-info">
     <div>
       <span class="icon-copyright"></span>
-        2020-2026
+        2024-2026
         <span class="footer-info-sep rotate"></span>
       QET
     </div>
       <div>
-        Powered by&nbsp;<a href="https://hexo.io/" rel="noopener nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
-        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener nofollow noreferrer" target="_blank">Reimu</a>
-      </div>
-      <div>
         <span class="icon-brush"></span>
-        126
+        252
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:03
+        00:07
       </div>
       <div>
         <span class="icon-eye"></span>
-        <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
         &nbsp;|&nbsp;
         <span class="icon-user"></span>
-        <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
       </div>
   </div>
 </footer>
@@ -314,48 +397,48 @@
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>Post</div>
-    <div class="sidebar-state-number">3</div>
+    <div>文章</div>
+    <div class="sidebar-state-number">7</div>
   </div>
   <div class="sidebar-state-category">
-    <div>Category</div>
-    <div class="sidebar-state-number">1</div>
+    <div>分类</div>
+    <div class="sidebar-state-number">3</div>
   </div>
   <div class="sidebar-state-tag">
-    <div>Tag</div>
-    <div class="sidebar-state-number">1</div>
+    <div>标签</div>
+    <div class="sidebar-state-number">4</div>
   </div>
 </div>
 <div class="sidebar-social" >
 </div>
 <div class="sidebar-menu">
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
           <div class="sidebar-menu-icon icon rotate">
               &#xe62b;
           </div>
-        <div class="sidebar-menu-link">Home</div>
+        <div class="sidebar-menu-link">首页</div>
       </div>
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
           <div class="sidebar-menu-icon icon rotate">
               &#xe62b;
           </div>
-        <div class="sidebar-menu-link">Archives</div>
+        <div class="sidebar-menu-link">归档</div>
       </div>
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
           <div class="sidebar-menu-icon icon rotate">
               &#xe62b;
           </div>
-        <div class="sidebar-menu-link">About</div>
+        <div class="sidebar-menu-link">关于</div>
       </div>
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
           <div class="sidebar-menu-icon icon rotate">
               &#xe62b;
           </div>
-        <div class="sidebar-menu-link">Friend</div>
+        <div class="sidebar-menu-link">友链</div>
       </div>
 </div>
 
@@ -363,6 +446,21 @@
 </nav>
 
     </div>
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
+        </div>
+      </div>
     
 <script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
 
@@ -397,6 +495,9 @@
 
 <script src="/js/pjax_script.js" data-pjax></script>
 
+
+  
+<script src="/js/generator_search.js" defer></script>
 
 
 
@@ -462,6 +563,168 @@
         }
       </script>
         
+<script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+
+  var commentConfigKeys = ["valine"];
+  var commentConfig = {
+    valine: {
+      enable: true,
+      load: () => {
+        const container = document.querySelector('.valine-comment');
+        if (!container) return;
+        if (container.style.display === 'block') return; // already loaded
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https://npm.webcache.cn/valine@1.5.1/dist/Valine.min.js',
+          'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE+s5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn'
+        );
+        script.onload = () => {
+          var GUEST_INFO = ['nick', 'mail', 'link'];
+          var guest_info = 'nick,mail,link'.split(',').filter((item) => {
+            return GUEST_INFO.indexOf(item) > -1
+          });
+          var recordIP = JSON.parse('true');
+          var highlight = JSON.parse('true');
+          var visitor = JSON.parse('false');
+          var serverURLs = undefined;
+
+          if (window.Valine) {
+            new Valine({
+              el: '.valine-comment',
+              appId: "pe1tLrXKeT4Uikj7EGypMYpc-gzGzoHsz",
+              appKey: "mrjQvd77jFLFaqNgJwrpUbOn",
+              placeholder: "Just go go",
+              pageSize: '10',
+              avatar: 'monsterid',
+              lang: document.documentElement.lang || 'en',
+              recordIP: recordIP,
+              highlight: highlight,
+              visitor: visitor,
+              requiredFields: guest_info,
+              path: window.location.pathname,
+              serverURLs
+            });
+          }
+        };
+        document.head.appendChild(script);
+      }
+    },
+  }
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    // 1. 首先检查localStorage中是否有保存的评论类型
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    // 2. 如果localStorage中有值且对应的评论系统可用，就使用它
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    // 3. 如果localStorage无效，检查配置的默认评论系统
+    if (!defaultComment) {
+      var configDefault = 'valine';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    // 4. 如果前两项都无效，按指定顺序找到第一个可用的评论系统
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false
+    };
+
+    // 隐藏所有评论容器
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    // 按需加载评论系统
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        // 如果已加载，只需显示对应容器
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      // 根据类型加载对应的脚本
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    // 评论组件选择器
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      // 获取要加载的评论系统类型
+      const commentType = item.getAttribute('data-selector');
+
+      // 隐藏所有评论系统
+      hideAllComments();
+
+      // 加载选中的评论系统
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      // 评论组件选择器点击事件
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          // 保存选择器状态
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          // 切换选中状态
+          changeActiveCommentItems(item);
+        });
+      }
+
+      // 检查是否需要加载默认评论系统
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script>
 
   </div>
 </div>
