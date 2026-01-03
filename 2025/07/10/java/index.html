@@ -17,15 +17,15 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="Java是一门面向对象的编程语言，由Sun Microsystems公司于1995年推出。Java不仅吸收了C++语言的各种优点，还摒弃了C++里难以理解的多继承、指针等概念，因此Java语言具有功能强大和简单易用两个特征。">
+    <meta name="description" content="Java 全面介绍Java 是由 Sun Microsystems（后被 Oracle 收购）于 1995 年推出的面向对象、跨平台的高级编程语言，由詹姆斯・高斯林（James Gosling）领衔开发，核心设计理念是 “Write Once, Run Anywhere（一次编写，到处运行）”，现已成为全球最主流的编程语言之一，广泛应用于企业级开发、移动开发、大数据、云计算等领域。 核心定位Jav">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java介绍">
 <meta property="og:url" content="http://example.com/2025/07/10/java/index.html">
 <meta property="og:site_name" content="etovo">
-<meta property="og:description" content="Java是一门面向对象的编程语言，由Sun Microsystems公司于1995年推出。Java不仅吸收了C++语言的各种优点，还摒弃了C++里难以理解的多继承、指针等概念，因此Java语言具有功能强大和简单易用两个特征。">
+<meta property="og:description" content="Java 全面介绍Java 是由 Sun Microsystems（后被 Oracle 收购）于 1995 年推出的面向对象、跨平台的高级编程语言，由詹姆斯・高斯林（James Gosling）领衔开发，核心设计理念是 “Write Once, Run Anywhere（一次编写，到处运行）”，现已成为全球最主流的编程语言之一，广泛应用于企业级开发、移动开发、大数据、云计算等领域。 核心定位Jav">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-07-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-01-03T06:11:56.434Z">
+<meta property="article:modified_time" content="2026-01-03T06:37:18.269Z">
 <meta property="article:author" content="QET">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="技术">
@@ -194,7 +194,7 @@
     <div class="sidebar-wrap" data-aos="fade-up">
           <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java-%E5%85%A8%E9%9D%A2%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">Java 全面介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%AE%9A%E4%BD%8D"><span class="toc-number">1.1.</span> <span class="toc-text">核心定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="toc-number">1.2.</span> <span class="toc-text">核心特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%80%A7%EF%BC%88Write-Once-Run-Anywhere%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">跨平台性（Write Once, Run Anywhere）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88OOP%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">面向对象（OOP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%A5%E5%A3%AE%E6%80%A7%EF%BC%88Robustness%EF%BC%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">健壮性（Robustness）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7%EF%BC%88Security%EF%BC%89"><span class="toc-number">1.2.4.</span> <span class="toc-text">安全性（Security）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E6%80%A7%E8%83%BD%EF%BC%88High-Performance%EF%BC%89"><span class="toc-number">1.2.5.</span> <span class="toc-text">高性能（High Performance）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7-%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7"><span class="toc-number">1.2.6.</span> <span class="toc-text">可移植性 &amp; 可扩展性</span></a></li></ol></li></ol></li></ol>
 </div>
 </div>
           <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -275,7 +275,52 @@
     <div class="hr-line"></div>
     
     <div class="e-content article-entry" itemprop="articleBody">
-        <p>Java是一门<strong>面向对象的编程语言</strong>，由Sun Microsystems公司于1995年推出。Java不仅吸收了C++语言的各种优点，还摒弃了C++里难以理解的多继承、指针等概念，因此Java语言具有<strong>功能强大和简单易用</strong>两个特征。</p>
+        <h1 id="Java-全面介绍"><a href="#Java-全面介绍" class="headerlink" title="Java 全面介绍"></a>Java 全面介绍</h1><p>Java 是由 Sun Microsystems（后被 Oracle 收购）于 1995 年推出的<strong>面向对象、跨平台</strong>的高级编程语言，由詹姆斯・高斯林（James Gosling）领衔开发，核心设计理念是 “Write Once, Run Anywhere（一次编写，到处运行）”，现已成为全球最主流的编程语言之一，广泛应用于企业级开发、移动开发、大数据、云计算等领域。</p>
+<h2 id="核心定位"><a href="#核心定位" class="headerlink" title="核心定位"></a>核心定位</h2><p>Java 并非单一的 “编程语言”，而是一套完整的<strong>技术生态</strong>：</p>
+<ul>
+<li>包含编程语言规范、编译器（javac）、虚拟机（JVM）、类库（Java SE API）、开发工具（JDK）等；</li>
+<li>核心目标是实现 “跨平台” 和 “高可靠性”，兼顾开发效率与运行性能；</li>
+<li>既支持面向对象编程（OOP），也逐步兼容函数式编程（Java 8 引入 Lambda 表达式）。</li>
+</ul>
+<h2 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h2><h3 id="跨平台性（Write-Once-Run-Anywhere）"><a href="#跨平台性（Write-Once-Run-Anywhere）" class="headerlink" title="跨平台性（Write Once, Run Anywhere）"></a>跨平台性（Write Once, Run Anywhere）</h3><p>这是 Java 最核心的特性，底层依赖 <strong>Java 虚拟机（JVM）</strong> 实现：</p>
+<ul>
+<li>开发者编写的 Java 代码（.java 文件）经编译器编译为<strong>字节码文件（.class）</strong>，而非直接编译为机器码；</li>
+<li>不同操作系统（Windows、Linux、macOS）安装对应的 JVM，JVM 负责将字节码解释 &#x2F; 编译为本地机器码执行；</li>
+<li>无需针对不同系统修改代码，仅需保证目标系统有兼容的 JVM。</li>
+</ul>
+<h3 id="面向对象（OOP）"><a href="#面向对象（OOP）" class="headerlink" title="面向对象（OOP）"></a>面向对象（OOP）</h3><p>Java 严格遵循面向对象的核心思想，万物皆为 “对象”：</p>
+<ul>
+<li>封装（Encapsulation）：通过类和访问修饰符（public&#x2F;private&#x2F;protected）隐藏内部实现，暴露统一接口；</li>
+<li>继承（Inheritance）：通过 <code>extends</code> 实现类的复用，单继承（类）+ 多实现（接口）避免复杂继承链；</li>
+<li>多态（Polymorphism）：通过方法重写（Override）和接口实现，实现 “一个接口，多种实现”；</li>
+<li>核心关键字：<code>class</code>、<code>object</code>、<code>interface</code>、<code>extends</code>、<code>implements</code> 等。</li>
+</ul>
+<h3 id="健壮性（Robustness）"><a href="#健壮性（Robustness）" class="headerlink" title="健壮性（Robustness）"></a>健壮性（Robustness）</h3><p>Java 设计上大幅降低出错概率，适合构建稳定的企业级应用：</p>
+<ul>
+<li>自动内存管理（垃圾回收 GC）：JVM 自动回收不再使用的内存，避免 C&#x2F;C++ 中的内存泄漏、野指针问题；</li>
+<li>强类型检查：编译期严格检查类型匹配，减少运行时错误；</li>
+<li>异常处理机制：通过 <code>try-catch-finally</code> 统一处理错误，避免程序崩溃；</li>
+<li>无指针直接操作：通过引用替代指针，降低内存操作风险。</li>
+</ul>
+<h3 id="安全性（Security）"><a href="#安全性（Security）" class="headerlink" title="安全性（Security）"></a>安全性（Security）</h3><p>Java 最初为嵌入式设备和网络环境设计，内置多层安全防护：</p>
+<ul>
+<li>字节码验证：JVM 加载字节码时验证合法性，防止恶意代码执行；</li>
+<li>安全管理器（SecurityManager）：可限制程序的文件访问、网络连接等权限；</li>
+<li>沙箱机制：隔离不可信代码的运行环境，避免对系统造成破坏；</li>
+<li>适合开发网络应用（如电商、金融），满足数据安全要求。</li>
+</ul>
+<h3 id="高性能（High-Performance）"><a href="#高性能（High-Performance）" class="headerlink" title="高性能（High Performance）"></a>高性能（High Performance）</h3><p>早期 Java 因 “解释执行” 性能较弱，现已通过多项优化大幅提升：</p>
+<ul>
+<li>JIT 编译器（即时编译）：JVM 运行时将高频执行的字节码编译为本地机器码，接近原生程序性能；</li>
+<li>垃圾回收优化：G1、ZGC、Shenandoah 等新一代 GC 算法，大幅降低停顿时间；</li>
+<li>支持多线程：内置线程 API（<code>Thread</code>、<code>Runnable</code>、<code>Callable</code>），充分利用多核 CPU；</li>
+<li>大数据 &#x2F; 高并发场景下（如电商秒杀），Java 性能可满足生产要求。</li>
+</ul>
+<h3 id="可移植性-可扩展性"><a href="#可移植性-可扩展性" class="headerlink" title="可移植性 &amp; 可扩展性"></a>可移植性 &amp; 可扩展性</h3><ul>
+<li>可移植性：除跨平台外，Java 类库（如 java.lang、java.util）在不同 JVM 实现中行为一致；</li>
+<li>可扩展性：通过接口、抽象类、模块化（Java 9 引入 Module）实现代码解耦，便于扩展和维护；</li>
+<li>支持分布式：内置网络编程 API（<a target="_blank" rel="noopener" href="https://java.net/">java.net</a>、java.nio），适配分布式系统开发。</li>
+</ul>
 
     </div>
     <footer class="article-footer">
@@ -299,7 +344,7 @@
         </h3>
       </div>
     <div class="article-nav-link-wrap right">
-          <img data-src="https://ooo.0x0.ooo/2024/11/15/OH4MNi.png" data-sizes="auto" alt="Hello World" class="lazyload">
+          <img data-src="https://ooo.0x0.ooo/2024/11/28/OLM0n6.webp" data-sizes="auto" alt="Hello World" class="lazyload">
       <a href="/2013/12/24/hello-world/" aria-label="后一篇: Hello World"  title="后一篇: Hello World"></a>
       <div class="article-nav-caption">后一篇</div>
       <h3 class="article-nav-title">
@@ -344,10 +389,10 @@
     </div>
       <div>
         <span class="icon-brush"></span>
-        866
+        1.7k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:06
+        00:09
       </div>
       <div>
         <span class="icon-eye"></span>
@@ -369,7 +414,7 @@
   <div class="sidebar-wrap">
         <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
 <div class="sidebar-toc-wrapper toc-div-class" >
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java-%E5%85%A8%E9%9D%A2%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">Java 全面介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%AE%9A%E4%BD%8D"><span class="toc-number">1.1.</span> <span class="toc-text">核心定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="toc-number">1.2.</span> <span class="toc-text">核心特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%80%A7%EF%BC%88Write-Once-Run-Anywhere%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">跨平台性（Write Once, Run Anywhere）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88OOP%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">面向对象（OOP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%A5%E5%A3%AE%E6%80%A7%EF%BC%88Robustness%EF%BC%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">健壮性（Robustness）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7%EF%BC%88Security%EF%BC%89"><span class="toc-number">1.2.4.</span> <span class="toc-text">安全性（Security）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E6%80%A7%E8%83%BD%EF%BC%88High-Performance%EF%BC%89"><span class="toc-number">1.2.5.</span> <span class="toc-text">高性能（High Performance）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7-%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7"><span class="toc-number">1.2.6.</span> <span class="toc-text">可移植性 &amp; 可扩展性</span></a></li></ol></li></ol></li></ol>
 </div>
 </div>
         <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
@@ -513,9 +558,9 @@
           url: "http://example.com/2025/07/10/java/",
           excerpt: "",
           description: "",
-          stripContent: "Java是一门面向对象的编程语言，由Sun Microsystems公司于1995年推出。Java不仅吸收了C++语言的各种优点，还摒弃了C++里难以理解的多继承、指针等概念，因此Java语言具有功能强大和简单易用两个特征。 ",
+          stripContent: "Java 全面介绍Java 是由 Sun Microsystems（后被 Oracle 收购）于 1995 年推出的面向对象、跨平台的高级编程语言，由詹姆斯・高斯林（James Gosling）领衔开发，核心设计理念是 “Write Once, Run Anywhere（一次编写，到处运行）”，现已成为全球最主流的编程语言之一，广泛应用于企业级开发、移动开发、大数据、云计算等领域。 核心定位Java 并非单一的 “编程语言”，而是一套完整的技术生态：  包含编程语言规范、编译器（javac）、虚",
           date: "Thu Jul 10 2025 00:00:00 GMT+0800",
-          updated: "Sat Jan 03 2026 14:11:56 GMT+0800",
+          updated: "Sat Jan 03 2026 14:37:18 GMT+0800",
           cover: "https://ooo.0x0.ooo/2024/11/22/OH0WMD.webp",
         };
       </script>
