@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>etovo</title>
+  <icon>http://example.com/icon.png</icon>
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2026-01-03T06:29:48.958Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>QET</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>技术栏</title>
+    <link href="http://example.com/2025/12/09/%E6%8A%80%E6%9C%AF%E6%A0%8F/"/>
+    <id>http://example.com/2025/12/09/%E6%8A%80%E6%9C%AF%E6%A0%8F/</id>
+    <published>2025-12-08T16:00:00.000Z</published>
+    <updated>2026-01-03T06:29:48.958Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;测试1&quot;&gt;&lt;a href=&quot;#测试1&quot; class=&quot;headerlink&quot; title=&quot;测试1&quot;&gt;&lt;/a&gt;测试1&lt;/h1&gt;&lt;p&gt;测试一下&lt;/p&gt;
+&lt;h2 id=&quot;哈哈哈&quot;&gt;&lt;a href=&quot;#哈哈哈&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="web" scheme="http://example.com/tags/web/"/>
+    
+    <category term="Lua" scheme="http://example.com/tags/Lua/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spintboot介绍</title>
+    <link href="http://example.com/2025/07/11/springboot/"/>
+    <id>http://example.com/2025/07/11/springboot/</id>
+    <published>2025-07-10T16:00:00.000Z</published>
+    <updated>2026-01-03T06:37:01.454Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;SpringBoot-全面介绍&quot;&gt;&lt;a href=&quot;#SpringBoot-全面介绍&quot; class=&quot;headerlink&quot; title=&quot;SpringBoot 全面介绍&quot;&gt;&lt;/a&gt;SpringBoot 全面介绍&lt;/h1&gt;&lt;p&gt;SpringBoot 是由</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="http://example.com/categories/java/"/>
+    
+    
+    <category term="SpringBoot" scheme="http://example.com/tags/SpringBoot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>java介绍</title>
+    <link href="http://example.com/2025/07/10/java/"/>
+    <id>http://example.com/2025/07/10/java/</id>
+    <published>2025-07-09T16:00:00.000Z</published>
+    <updated>2026-01-03T06:37:18.269Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Java-全面介绍&quot;&gt;&lt;a href=&quot;#Java-全面介绍&quot; class=&quot;headerlink&quot; title=&quot;Java 全面介绍&quot;&gt;&lt;/a&gt;Java 全面介绍&lt;/h1&gt;&lt;p&gt;Java 是由 Sun Microsystems（后被 Oracle 收购）于</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="http://example.com/categories/java/"/>
+    
+    
+    <category term="技术" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="java" scheme="http://example.com/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://example.com/2013/12/24/hello-world/"/>
+    <id>http://example.com/2013/12/24/hello-world/</id>
+    <published>2013-12-24T09:49:32.000Z</published>
+    <updated>2025-12-30T08:52:14.333Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;http://zespia.tw/hexo&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
