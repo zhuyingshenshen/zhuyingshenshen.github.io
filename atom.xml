@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2026-01-03T06:17:58.719Z</updated>
+  <updated>2026-01-03T06:29:48.958Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/2025/12/09/%E6%8A%80%E6%9C%AF%E6%A0%8F/"/>
     <id>http://example.com/2025/12/09/%E6%8A%80%E6%9C%AF%E6%A0%8F/</id>
     <published>2025-12-08T16:00:00.000Z</published>
-    <updated>2026-01-03T06:17:58.719Z</updated>
+    <updated>2026-01-03T06:29:48.958Z</updated>
     
     
       
@@ -37,6 +37,35 @@
     
     <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
     
+    
+    <category term="web" scheme="http://example.com/tags/web/"/>
+    
+    <category term="Lua" scheme="http://example.com/tags/Lua/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spintboot介绍</title>
+    <link href="http://example.com/2025/07/11/springboot/"/>
+    <id>http://example.com/2025/07/11/springboot/</id>
+    <published>2025-07-10T16:00:00.000Z</published>
+    <updated>2026-01-03T06:32:39.567Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;SpringBoot-全面介绍&quot;&gt;&lt;a href=&quot;#SpringBoot-全面介绍&quot; class=&quot;headerlink&quot; title=&quot;SpringBoot 全面介绍&quot;&gt;&lt;/a&gt;SpringBoot 全面介绍&lt;/h1&gt;&lt;p&gt;SpringBoot 是由</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="http://example.com/categories/java/"/>
+    
+    
+    <category term="SpringBoot" scheme="http://example.com/tags/SpringBoot/"/>
     
   </entry>
   
@@ -64,107 +93,6 @@
     <category term="技术" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF/"/>
     
     <category term="java" scheme="http://example.com/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>测试java分类</title>
-    <link href="http://example.com/2024/12/10/%E6%B5%8B%E8%AF%95java%E5%88%86%E7%B1%BB%E6%A1%86/"/>
-    <id>http://example.com/2024/12/10/%E6%B5%8B%E8%AF%95java%E5%88%86%E7%B1%BB%E6%A1%86/</id>
-    <published>2024-12-09T16:00:00.000Z</published>
-    <updated>2026-01-03T06:12:16.260Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;测试一下&lt;/p&gt;
-</summary>
-        
-      
-    
-    
-    
-    <category term="java" scheme="http://example.com/categories/java/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>第二篇</title>
-    <link href="http://example.com/2024/12/10/%E7%AC%AC%E4%BA%8C%E7%AF%87/"/>
-    <id>http://example.com/2024/12/10/%E7%AC%AC%E4%BA%8C%E7%AF%87/</id>
-    <published>2024-12-09T16:00:00.000Z</published>
-    <updated>2026-01-03T06:11:27.547Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;今天把friend的站长内容给改了&lt;/p&gt;
-&lt;p&gt;hhh&lt;/p&gt;
-</summary>
-        
-      
-    
-    
-    
-    <category term="日记类的" scheme="http://example.com/categories/%E6%97%A5%E8%AE%B0%E7%B1%BB%E7%9A%84/"/>
-    
-    
-    <category term="日常" scheme="http://example.com/tags/%E6%97%A5%E5%B8%B8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第二篇</title>
-    <link href="http://example.com/2024/12/10/%E7%AC%AC%E4%BA%8C%E7%AF%87%20-%20%E5%89%AF%E6%9C%AC/"/>
-    <id>http://example.com/2024/12/10/%E7%AC%AC%E4%BA%8C%E7%AF%87%20-%20%E5%89%AF%E6%9C%AC/</id>
-    <published>2024-12-09T16:00:00.000Z</published>
-    <updated>2026-01-03T06:10:57.876Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;今天把friend的站长内容给改了&lt;/p&gt;
-&lt;p&gt;hhh&lt;/p&gt;
-</summary>
-        
-      
-    
-    
-    
-    <category term="java" scheme="http://example.com/categories/java/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>第一篇</title>
-    <link href="http://example.com/2024/12/09/%E7%AC%AC%E4%B8%80%E7%AF%87/"/>
-    <id>http://example.com/2024/12/09/%E7%AC%AC%E4%B8%80%E7%AF%87/</id>
-    <published>2024-12-08T16:00:00.000Z</published>
-    <updated>2026-01-03T06:00:24.293Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;一&quot;&gt;&lt;a href=&quot;#一&quot; class=&quot;headerlink&quot; title=&quot;一&quot;&gt;&lt;/a&gt;一&lt;/h1&gt;&lt;p&gt;第一篇博客不知道写什么捏。今天学了二叉树，森林好难。111&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="日记类的" scheme="http://example.com/categories/%E6%97%A5%E8%AE%B0%E7%B1%BB%E7%9A%84/"/>
-    
-    
-    <category term="日记" scheme="http://example.com/tags/%E6%97%A5%E8%AE%B0/"/>
     
   </entry>
   
