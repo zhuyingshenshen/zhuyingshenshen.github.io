@@ -1,0 +1,853 @@
+  <!DOCTYPE html>
+  <html lang="en"  
+      data-theme-mode="auto"
+  >
+  <head>
+  <meta charset="utf-8">
+  
+  
+  
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_4k4bc36ef96';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)","en":"Copy successfully (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","en":"Copy failed (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'http://example.com';window.REIMU_CONFIG.i18n_languages = ["en"];</script>
+  <title>
+    java基础 | etovo
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="Day1随便写一个整数，默认是int类型，如果将一个超过int范围的数赋值给一个long类型的变量 long l1 &#x3D; 334254235555则会报错，因为超出了int范围。正确写法是加数后面加上L或l指定类型。 如果是任意写一个浮点数，则默认是double类型的，若要指定为float则加上f char既是字符，又能当作数值运算。 Day2在表达式中，小范围类型的变量，会自动转换成表达式中较大范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java基础">
+<meta property="og:url" content="http://example.com/en/2025/07/10/Java%20%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="etovo">
+<meta property="og:description" content="Day1随便写一个整数，默认是int类型，如果将一个超过int范围的数赋值给一个long类型的变量 long l1 &#x3D; 334254235555则会报错，因为超出了int范围。正确写法是加数后面加上L或l指定类型。 如果是任意写一个浮点数，则默认是double类型的，若要指定为float则加上f char既是字符，又能当作数值运算。 Day2在表达式中，小范围类型的变量，会自动转换成表达式中较大范">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-07-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-03T07:21:10.808Z">
+<meta property="article:author" content="QET">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+    <link rel="alternate" href="/atom.xml" title="etovo" type="application/atom+xml">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL&#x2F;toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx&#x2F;1oA&#x2F;0l8ysE" crossorigin="anonymous">
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
+
+<meta name="generator" content="Hexo 8.0.0"></head>
+
+  <body>
+      <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+           M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+      </div>
+      <div class="loading-word">Loading...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script>
+<div id="copy-tooltip"></div>
+<div id="heatmap-tooltip"></div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation">
+        <a class="main-nav-link-wrap" href="/en/">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">Home</span>
+        </span>
+        <a class="main-nav-link-wrap" href="/en/archives">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">Archives</span>
+        </span>
+        <a class="main-nav-link-wrap" href="/en/about">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">About</span>
+        </span>
+        <a class="main-nav-link-wrap" href="/en/friend">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">Friend</span>
+        </span>
+    <a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation">
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed" aria-label="RSS Feed" target="_blank"></a>
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="Search" aria-label="Search"></a>
+  </nav>
+    <nav id="i18n-nav" aria-label="Language selection">
+      <div class="custom-dropdown">
+        <div class="select-selected" id="select-selected" role="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language menu">
+          <span id="nav-language-btn" class="nav-icon" style="padding: 0 20px 0 0"></span>
+          <span id="selected-lang">English</span>
+        </div>
+        <ul class="select-items" id="select-items" role="listbox" aria-label="Languages">
+            <li data-value="zh-CN" role="option" aria-selected="false">简体中文</li>
+            <li data-value="en" role="option" class="selected" aria-selected="true">English</li>
+        </ul>
+      </div>
+      <script>
+        var selectSelected = document.getElementById("select-selected");
+        var selectedLang = document.getElementById("selected-lang");
+        var selectItems = document.getElementById("select-items");
+        var selectOptions = selectItems.querySelectorAll("li");
+
+        selectSelected.addEventListener("click", () => {
+          selectItems.classList.toggle("show");
+          var expanded = selectSelected.getAttribute("aria-expanded") === "true";
+          selectSelected.setAttribute("aria-expanded", (!expanded).toString());
+        });
+
+        selectOptions.forEach((item) => {
+          item.addEventListener("click", () => {
+            const langMap = {};
+              langMap['zh-CN'] = '/2025/07/10/Java 基础/';
+              langMap['en'] = '/en/2025/07/10/Java 基础/';
+            selectedLang.textContent = item.textContent;
+            selectItems.classList.remove("show");
+            selectOptions.forEach((option) => {
+              option.classList.remove("selected");
+            });
+            item.classList.add("selected");
+            window.location = langMap[item.dataset.value];
+          });
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!event.target.closest(".custom-dropdown")) {
+            selectItems.classList.remove("show");
+            selectSelected.setAttribute("aria-expanded", "false");
+          }
+        });
+      </script>
+    </nav>
+</div>
+<header id="header" aria-label="Site header">
+    <picture></picture>
+    <img  fetchpriority="high" src="https://ooo.0x0.ooo/2024/11/28/OLMd8b.jpg" alt="java基础">
+  <div id="header-outer">
+    <div id="header-title">
+          <span id="logo">
+            <h1 data-aos="slide-up">java基础</h1>
+          </span>
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+        </h2>
+    </div>
+  </div>
+</header>
+
+        <div id="content" aria-label="Page content" class="sidebar-left"  >
+          <aside id="sidebar" aria-label="Sidebar">
+  <div class="sidebar-wrapper-container sticky">
+  <div class="sidebar-wrapper">
+    <div class="sidebar-wrap" data-aos="fade-up">
+          <div class="sidebar-toc-sidebar"><h3 class="toc-title">Contents</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Day1"><span class="toc-number">1.</span> <span class="toc-text">Day1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Day2"><span class="toc-number">2.</span> <span class="toc-text">Day2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Day3"><span class="toc-number">3.</span> <span class="toc-text">Day3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">3.1.</span> <span class="toc-text">数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Day4"><span class="toc-number">4.</span> <span class="toc-text">Day4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">4.1.</span> <span class="toc-text">权限修饰符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Day5"><span class="toc-number">5.</span> <span class="toc-text">Day5</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%86%99"><span class="toc-number">5.1.</span> <span class="toc-text">重写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#this"><span class="toc-number">5.2.</span> <span class="toc-text">this()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-number">5.3.</span> <span class="toc-text">多态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Day6"><span class="toc-number">6.</span> <span class="toc-text">Day6</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#final%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">6.1.</span> <span class="toc-text">final关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">6.2.</span> <span class="toc-text">设计模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB"><span class="toc-number">6.3.</span> <span class="toc-text">枚举类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="toc-number">6.4.</span> <span class="toc-text">抽象类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3"><span class="toc-number">6.5.</span> <span class="toc-text">接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">6.6.</span> <span class="toc-text">匿名内部类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lambda"><span class="toc-number">6.7.</span> <span class="toc-text">Lambda</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8"><span class="toc-number">6.7.1.</span> <span class="toc-text">静态方法引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8"><span class="toc-number">6.7.2.</span> <span class="toc-text">实例方法引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E5%AE%9A%E6%96%B9%E6%B3%95%E7%B1%BB%E5%9E%8B%E5%BC%95%E7%94%A8"><span class="toc-number">6.7.3.</span> <span class="toc-text">特定方法类型引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%E5%BC%95%E7%94%A8"><span class="toc-number">6.7.4.</span> <span class="toc-text">构造器引用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String"><span class="toc-number">6.8.</span> <span class="toc-text">String</span></a></li></ol></li></ol>
+</div>
+</div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="QET" class="lazyload">
+  <div class="sidebar-author-name">QET</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>Post</div>
+    <div class="sidebar-state-number">5</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>Category</div>
+    <div class="sidebar-state-number">2</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>Tag</div>
+    <div class="sidebar-state-number">5</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/" aria-label="Home"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">Home</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/archives" aria-label="Archives"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">Archives</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/about" aria-label="About"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">About</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/friend" aria-label="Friend"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">Friend</div>
+      </div>
+</div>
+</div>
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+    </div>
+  </div>
+  <div class="sidebar-widget">
+  </div>
+  </div>
+</aside>
+
+          <section id="main" aria-label="Main content"><article id="post-Java 基础" class="h-entry article" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <span class="article-date-link icon-calendar" data-aos="zoom-in">
+    <time datetime="2025-07-09T16:00:00.000Z" itemprop="datePublished">2025-07-10</time>
+    <time style="display: none;" id="post-update-time">2026-01-03</time>
+  </span>
+</div>
+
+    </div>
+    
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+        <h2 id="Day1"><a href="#Day1" class="headerlink" title="Day1"></a>Day1</h2><p>随便写一个整数，默认是int类型，如果将一个超过int范围的数赋值给一个long类型的变量</p>
+<p><code>long l1 = 334254235555</code>则会报错，因为超出了int范围。正确写法是加数后面加上L或l指定类型。</p>
+<p>如果是任意写一个浮点数，则默认是double类型的，若要指定为float则加上f</p>
+<p>char既是字符，又能当作数值运算。</p>
+<h2 id="Day2"><a href="#Day2" class="headerlink" title="Day2"></a>Day2</h2><p>在表达式中，小范围类型的变量，会自动转换成表达式中较大范围的类型，再参与运算。</p>
+<p>byte、short、char —&gt; int —&gt;long —&gt;float —&gt; double</p>
+<ul>
+<li>表达式的最终结果类型由表达式中的最高类型决定。</li>
+<li>在表达式中，<strong>byte、short、char是直接转换成int类型参与运算的。</strong></li>
+</ul>
+<p>扩展的赋值运算符(+&#x3D; -&#x3D; *&#x3D; &#x2F;&#x3D; %&#x3D;)隐含了强制类型转换</p>
+<p>&amp;&amp;和&amp;区别 判断结果一样,&amp;&amp;短路与会提前中断。</p>
+<p>||和|区别，判断结果一样，||短路或会提前中断。</p>
+<h2 id="Day3"><a href="#Day3" class="headerlink" title="Day3"></a>Day3</h2><p>Switch 表达式类型只能是byte、short、int、char,JDK5开始支持枚举，JDK7开始支持String,不支持double、float、long。case给出的值不能重复，且只能是字面量，不能是变量。不要忘写break。</p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//静态初始化数组 定义时已确定数据</span></span><br><span class="line">数据类型[] 数据名 = &#123;元素<span class="number">1</span>,元素<span class="number">2</span>,元素<span class="number">3</span>,..。&#125;;</span><br><span class="line"><span class="type">int</span>[] arr = &#123;<span class="number">12</span>,<span class="number">24</span>,<span class="number">36</span>&#125;;</span><br><span class="line"><span class="comment">//完整格式</span></span><br><span class="line">数据类型[] 数据名 = <span class="keyword">new</span> 数据类型[]&#123;元素<span class="number">1</span>，元素<span class="number">2</span>，元素<span class="number">3.</span>..&#125;</span><br><span class="line"><span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">12</span>,<span class="number">24</span>,<span class="number">36</span>&#125;;</span><br><span class="line"><span class="comment">//动态初始化数组</span></span><br><span class="line">数据类型[] 数据名 = <span class="keyword">new</span> 数据类型[长度]</span><br><span class="line"><span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>];</span><br></pre></td></tr></table></figure>
+
+<h2 id="Day4"><a href="#Day4" class="headerlink" title="Day4"></a>Day4</h2><p>类默认就自带了一个无参构造器(类似C++的构造函数)</p>
+<p>为类定义了有参数构造器，那么类默认的无参数构造器就没有了，此时如果还想用无参数构造器，就必须手写一个无参数构造器</p>
+<p>类的属性前面加static,意为静态变量，类的静态变量是共用的，在内存中占一处空间，一般是用类名.属性名来使用。</p>
+<p>类的方法前面加staic,意为静态方法，静态方法可以用来设计工具类，工具类中的方法都是静态方法，每个类方法用来完成一个功能，提高代码复用性。</p>
+<p>**静态方法和实例方法的区别:**静态方法可以直接访问静态成员，但不可以访问实例成员(静态成员存储在方法区，在类加载时初始化，与类本身绑定，静态方法本身没有隐含的<code>this</code>引用，)</p>
+<p>子类对象包含父类的所有成员，因为子类实例化时回调用父类的构造函数初始化父类的成员。虽然私有变量存在于子类对象中，但是子类无法通过变量名直接操作它们(需要通过父类提供的public&#x2F;protected方法访问)</p>
+<h3 id="权限修饰符"><a href="#权限修饰符" class="headerlink" title="权限修饰符"></a>权限修饰符</h3><p>private 本类</p>
+<p>default(缺省) 本类、同一个包中的类</p>
+<p>protected 本类，同一个包的类、子孙类中</p>
+<p>public 任意位置</p>
+<h2 id="Day5"><a href="#Day5" class="headerlink" title="Day5"></a>Day5</h2><h3 id="重写"><a href="#重写" class="headerlink" title="重写"></a>重写</h3><p>@Override 重写标识符</p>
+<p>子类重写Object类的toString()方法(默认返回对象地址)，以便放回对象的内容。</p>
+<h3 id="this"><a href="#this" class="headerlink" title="this()"></a>this()</h3><p>默认情况下，子类全部构造器的第一行代码都是super()，它会调用父类的无参数构造器。</p>
+<p>如果父类没有无参数构造器，则我们必须要在子类构造器的第一行手写super(…),去指定调用父类的有参构造器。</p>
+<p><strong>super构造器或this构造器必须写在构造器的第一行 并且不能同时出现</strong></p>
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>多态前提:有继承&#x2F;实现关系;存在父类引用子类对象；存在方法重写</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">People p1 = new Student();</span><br><span class="line">p1.run();</span><br><span class="line"></span><br><span class="line">People p2 = new Teacher();</span><br><span class="line">p2.run();</span><br></pre></td></tr></table></figure>
+
+<p>Java多态表现为对象多态、行为多态(方法重写)</p>
+<p>多态是对象、行为的多态， 方法:编译看左，左即左边的类 运行看右 成员变量:编译看左，运行也看左 这里的“左”指的是<strong>引用类型</strong>，也就是声明对象时等号左边的类型。</p>
+<p>成员变量和方法不同，它们<strong>不具备多态性</strong>。<strong>无论运行时实际对象是什么类型，访问成员变量时，永远只看引用类型（左边）的成员变量。</strong></p>
+<p>多态下不能调子类独有功能 （编译器为了保证代码的安全性，只允许你调用左边引用类型所拥有的功能。)</p>
+<p>多态好处:右边对象解耦合，便于拓展维护。定义方法时，使用父类类型形参可以接收一切子类对象，扩展性强</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">遇到的问题:</span><br><span class="line"></span><br><span class="line">Q:Animal a1 = new Tortoise();</span><br><span class="line"></span><br><span class="line">Tortoise t1 = a1;直接这样写为什么不行 a1难道不算Tortoise的对象吗?前面不是刚new了一遍吗</span><br><span class="line"></span><br><span class="line">Tortoise t1 = (Tortoise) a1; 为什么必须像这样强制转换了才能用?</span><br><span class="line"></span><br><span class="line">A:编译器的保护机制，使得开发者必须强制类型转换告诉编译器知道a1是Tortoise类型。</span><br><span class="line"></span><br><span class="line">Animal a1 = new Tortoise();</span><br><span class="line"></span><br><span class="line">Parrot p1 = (Parrot) a1 这样写编译时不保存，但是运行时会发现试图将Tortoise类型的对象转换成Parrot,会报错ClassCastException。</span><br></pre></td></tr></table></figure>
+
+<p><strong>Java建议在强制转换前，应该判断对象的真实类型，再进行强制类型转换。</strong>(用instanceof)</p>
+<h2 id="Day6"><a href="#Day6" class="headerlink" title="Day6"></a>Day6</h2><h3 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h3><p>final修饰静态变量，这个变量今后被称为常量，常量名称建议全部大写。</p>
+<p>被final修饰的量<strong>不能被继承</strong></p>
+<p>修饰基本类型变量，变量存储的<strong>数据</strong>不能被改变。</p>
+<p>修饰引用类型变量(数组)，变量存储的<strong>地址</strong>不能被改变，但地址所指对象的内容可变。</p>
+<h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><p>单例设计模式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//单例设计模式</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">A</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">A</span> <span class="variable">a</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">A</span>()；</span><br><span class="line">    <span class="comment">//私有化构造器</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">A</span><span class="params">()</span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> A <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//懒汉式单例类 延迟加载对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> B b；</span><br><span class="line">    <span class="comment">//私有化构造器</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">b</span><span class="params">()</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> B <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(b == <span class="literal">null</span>)&#123;</span><br><span class="line">            b = <span class="keyword">new</span> <span class="title class_">B</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>模板方法设计模式</p>
+<p>1、定义一个抽象类。</p>
+<p>2、在里面定义2个方法</p>
+<ul>
+<li>一个是模板方法：把共同的实现步骤放里面去。</li>
+<li>一个是抽象方法：不确定的实现步骤，交给具体的子类来完成。</li>
+</ul>
+<h3 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h3><p>枚举类是final最终类不可被继承，枚举类继承java.lang.Enum类 枚举类第一行只能罗列一些常量名称，**常量回记住枚举类的一个对象。**构造器为私有，对外不能创建对象。编译器为枚举类新增了几个方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">A</span>&#123;</span><br><span class="line">    X,Y,Z;</span><br><span class="line">&#125;</span><br><span class="line">Complied from <span class="string">&quot;A.java&quot;</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">A</span> <span class="keyword">extends</span> <span class="title class_">java</span>.lang.Enum&lt;A&gt;&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> fianl <span class="type">A</span> <span class="variable">X</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">A</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> fianl <span class="type">A</span> <span class="variable">Y</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">A</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> fianl <span class="type">A</span> <span class="variable">Z</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">A</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> A[] values();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> A <span class="title function_">valueOf</span><span class="params">(java.lang.String)</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>用abstract修饰；抽象方法只有方法签名，不能写方法体。</p>
+<p>可以不写抽象方法，但有<strong>抽象方法的类必须是抽象类</strong>，类有的成员，抽象类都具备。</p>
+<p><strong>抽象类不能创建对象</strong>，仅作为一种特殊的父类让子类继承并实现。<strong>抽象类的子类必须重写父类的所有抽象方法</strong>，除非子类本身也被声明为 <code>abstract</code></p>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>使用interface关键字定义的一种结构，JDK8之前，接口中只能定义成员变量(常量)和成员方法(抽象方法)。</p>
+<p><code>实现类</code>实现多个接口，必须重写完全部接口的全部抽象方法，否则实现类需要定义成抽象类。	</p>
+<p>修饰符 class 实现类类名 implements 接口1，接口2，接口3， …{</p>
+<p>}</p>
+<p>接口在高版本支持默认方法，私有方法private</p>
+<p><strong>注意事项：</strong></p>
+<ul>
+<li>接口与接口可以多继承：一个接口可以同时继承多个接口[重点]</li>
+<li>一个接口继承多个接口，如果多个接口存在方法签名冲突（方法名和参数列表相同但返回类型不同的方法)则此时不支持多继承，也不支持多实现</li>
+<li><em>一个类继承了父类，又同时实现了接口，如果父类中和接口中有同名的默认方法，实现类会优先用父类的</em></li>
+<li>一个类实现了多个接口，如果多个接口中存在同名的方法，可以不冲突，</li>
+</ul>
+<h3 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h3><p>书写格式:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> 类或接口(参数值...)&#123;</span><br><span class="line">     类体(一般是方法重写);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Animal</span>()&#123;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">cry</span><span class="params">()</span>&#123;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>匿名内部类本质就是一个子类，并会立即创建出一个子类对象。</p>
+<p>匿名内部类实际上有名字(在编译后产生类文件)外部类名$编号.class</p>
+<p><strong>匿名类的本质是编译器自动生成一个没有名字的实现类，并直接实例化。</strong></p>
+<p><code>public static void start(Swim s)</code>这里的s可以直接用下面这种方式传参</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">start(<span class="keyword">new</span> <span class="title class_">Swim</span>()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    pubic <span class="keyword">void</span> <span class="title function_">swimming</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.printlin(<span class="string">&quot;游泳1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>使用场景一:为按钮添加事件监听器对象</p>
+<p>使用场景二:使用comparator接口的匿名内部类实现对数组排序</p>
+<h3 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h3><p>Lambda表达式只能简化函数式接口的匿名内部类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span> <span class="comment">// 声明函数式接口的注解 声明后只能写一个抽象方法</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Swim</span>&#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">swimming</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Swim s1 = new Swim()&#123;</span></span><br><span class="line"><span class="comment">    @Override</span></span><br><span class="line"><span class="comment">    public void swimming()&#123;</span></span><br><span class="line"><span class="comment">        System.out.println(&quot;学生游泳&quot;);</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">Swim</span> <span class="variable">s1</span> <span class="operator">=</span> () - &gt; &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;学生游泳&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>函数式接口:只有一个抽象方法的接口<br><code>@FunctionInterface</code>声明函数式接口的注解</p>
+<h4 id="静态方法引用"><a href="#静态方法引用" class="headerlink" title="静态方法引用"></a>静态方法引用</h4><p>类名::静态方法 使用场景:Lambda表达式只调用<strong>一个</strong>静态方法，并且”-&gt;”前后参数形式一致，就可以使用静态方法引用。</p>
+<h4 id="实例方法引用"><a href="#实例方法引用" class="headerlink" title="实例方法引用"></a>实例方法引用</h4><p>对象名::实例方法 使用场景:如果某个Lambda表达式里只是通过对象名称调用一个实例方法，并且“-&gt;”前后参数的形式一致，就可以使用实例方法引用。</p>
+<h4 id="特定方法类型引用"><a href="#特定方法类型引用" class="headerlink" title="特定方法类型引用"></a>特定方法类型引用</h4><p>特性类的名称::方法 使用场景:某个lambda表达式中只是调用一个特定类型的实例方法，并且前面参数列表中的第一个参数是作为方法的主调，后面的所有参数都是作为该实例方法的入参的，则此时可以使用特定类型的方法引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(names);</span><br><span class="line">Arrays.sort(names,<span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;String&gt;()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(String o1,String o2)</span>&#123;</span><br><span class="line">        <span class="comment">//o1 a1</span></span><br><span class="line">        <span class="comment">//o2 a2</span></span><br><span class="line">        <span class="keyword">return</span> o1.compareToIgnoreCase(o2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">Arrays.sort(names,(o1,o2) -&gt; o1.compareToIgnoreCase(o2));</span><br><span class="line"><span class="comment">//特定类型方法引用: 类型名称::方法名</span></span><br><span class="line">Arrays.sort(names,String::compareToIgnoreCase);</span><br><span class="line"></span><br><span class="line">System.out.printlin(Arrays.toString(names));</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="构造器引用"><a href="#构造器引用" class="headerlink" title="构造器引用"></a>构造器引用</h4><p>类名::new 使用场景:如果某个lambda表达式里只是在创建对象，并且“-&gt;”前后参数情况一致，就可以使用构造器引用。</p>
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><p>创建对象封装字符串数据的方式</p>
+<ul>
+<li>直接使用双引号“…”(会存储到字符串常量池，并且相同内容的字符串只存储一份)</li>
+<li>new String类，调用构造器初始化字符串对象(每new一次都会产生一个新的对象放到堆内存中)</li>
+</ul>
+
+    </div>
+    <footer class="article-footer">
+        <a data-aos="zoom-in" href="/en/2025/07/10/Java%20%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/en/2025/07/10/Java%20%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
+          Comments
+        </a>
+        <a class="article-category-link" href="/en/categories/java/" title="java" data-aos="zoom-in">java</a>
+
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/en/tags/java/" rel="tag" title="java">java</a></li></ul>
+
+    </footer>
+  </div>
+    <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
+      <div class="article-nav-link-wrap left">
+          <img data-src="https://ooo.0x0.ooo/2024/11/22/OH0b7F.webp" data-sizes="auto" alt="Spintboot介绍" class="lazyload">
+        <a href="/en/2025/07/11/springboot/" aria-label="Prev: Spintboot介绍" title="Prev: Spintboot介绍"></a>
+        <div class="article-nav-caption">Prev</div>
+        <h3 class="article-nav-title">
+            Spintboot介绍
+        </h3>
+      </div>
+    <div class="article-nav-link-wrap right">
+        <img data-src="https://ooo.0x0.ooo/2024/11/22/OH0WMD.webp" data-sizes="auto" alt="java介绍" class="lazyload">
+      <a href="/en/2025/07/10/java/" aria-label="Next: java介绍"  title="Next: java介绍"></a>
+      <div class="article-nav-caption">Next</div>
+      <h3 class="article-nav-title">
+          java介绍
+      </h3>
+    </div>
+  </nav>
+
+</article>
+
+  <section id="comments" data-aos="fade-up">
+    <div class="comment-header">
+        
+      <h2 class="comment-title">Leave a comment</h2>
+      <div class="comment-selector">
+        <div class="comment-selector-wrap">
+            <div class="selector-item" data-selector="valine">
+              <span>valine</span>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="comment-content">
+          <div class="comment valine-comment" data-aos="fade-up"
+            id="valine-comment">
+          </div>
+    </div>
+  </section>
+
+</section>
+        </div>
+        <footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    <div>
+      <span class="icon-copyright"></span>
+        2024-2026
+        <span class="footer-info-sep rotate"></span>
+      QET
+    </div>
+      <div>
+        <span class="icon-brush"></span>
+        4.6k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        00:20
+      </div>
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+  </div>
+</footer>
+
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap">
+        <div class="sidebar-toc-sidebar"><h3 class="toc-title">Contents</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Day1"><span class="toc-number">1.</span> <span class="toc-text">Day1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Day2"><span class="toc-number">2.</span> <span class="toc-text">Day2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Day3"><span class="toc-number">3.</span> <span class="toc-text">Day3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">3.1.</span> <span class="toc-text">数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Day4"><span class="toc-number">4.</span> <span class="toc-text">Day4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">4.1.</span> <span class="toc-text">权限修饰符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Day5"><span class="toc-number">5.</span> <span class="toc-text">Day5</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%86%99"><span class="toc-number">5.1.</span> <span class="toc-text">重写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#this"><span class="toc-number">5.2.</span> <span class="toc-text">this()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-number">5.3.</span> <span class="toc-text">多态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Day6"><span class="toc-number">6.</span> <span class="toc-text">Day6</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#final%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">6.1.</span> <span class="toc-text">final关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">6.2.</span> <span class="toc-text">设计模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB"><span class="toc-number">6.3.</span> <span class="toc-text">枚举类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="toc-number">6.4.</span> <span class="toc-text">抽象类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3"><span class="toc-number">6.5.</span> <span class="toc-text">接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">6.6.</span> <span class="toc-text">匿名内部类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lambda"><span class="toc-number">6.7.</span> <span class="toc-text">Lambda</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8"><span class="toc-number">6.7.1.</span> <span class="toc-text">静态方法引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8"><span class="toc-number">6.7.2.</span> <span class="toc-text">实例方法引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E5%AE%9A%E6%96%B9%E6%B3%95%E7%B1%BB%E5%9E%8B%E5%BC%95%E7%94%A8"><span class="toc-number">6.7.3.</span> <span class="toc-text">特定方法类型引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%E5%BC%95%E7%94%A8"><span class="toc-number">6.7.4.</span> <span class="toc-text">构造器引用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String"><span class="toc-number">6.8.</span> <span class="toc-text">String</span></a></li></ol></li></ol>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="QET" class="lazyload">
+  <div class="sidebar-author-name">QET</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>Post</div>
+    <div class="sidebar-state-number">5</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>Category</div>
+    <div class="sidebar-state-number">2</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>Tag</div>
+    <div class="sidebar-state-number">5</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/" aria-label="Home"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">Home</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/archives" aria-label="Archives"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">Archives</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/about" aria-label="About"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">About</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/friend" aria-label="Friend"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">Friend</div>
+      </div>
+</div>
+</div>
+  </div>
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+</nav>
+
+    </div>
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
+        </div>
+      </div>
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+  
+<script src="/js/generator_search.js" defer></script>
+
+
+
+  <script>
+    var setupFirework = () => {
+      if (!false || !window.matchMedia('(max-width: 768px)').matches) {
+        window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["var(--red-1)","var(--red-2)","var(--red-3)","var(--red-4)"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["var(--red-0)"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'));
+      }
+    }
+  </script>
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js" integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8+pUoWX8n1rgq282T" crossorigin="anonymous" onload="setupFirework()" defer></script>
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+      
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "QET",
+          title: "java基础",
+          url: "http://example.com/2025/07/10/Java%20%E5%9F%BA%E7%A1%80/",
+          excerpt: "",
+          description: "",
+          stripContent: "Day1随便写一个整数，默认是int类型，如果将一个超过int范围的数赋值给一个long类型的变量 long l1 = 334254235555则会报错，因为超出了int范围。正确写法是加数后面加上L或l指定类型。 如果是任意写一个浮点数，则默认是double类型的，若要指定为float则加上f char既是字符，又能当作数值运算。 Day2在表达式中，小范围类型的变量，会自动转换成表达式中较大范围的类型，再参与运算。 byte、short、char —&amp;gt; int —&amp;gt;long —&amp;",
+          date: "Thu Jul 10 2025 00:00:00 GMT+0800",
+          updated: "Sat Jan 03 2026 15:21:10 GMT+0800",
+          cover: "https://ooo.0x0.ooo/2024/11/28/OLMd8b.jpg",
+        };
+      </script>
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+      
+<script src="/js/tabs.js" data-pjax defer></script>
+
+      <script type="module" data-pjax>
+        const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+        const initPswp = (gallery, children) => {
+          if (_$$(`${gallery} ${children}`).length > 0) {
+            new PhotoSwipeLightbox({
+              gallery,
+              children,
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+        }
+        const pswp = () => {
+          initPswp('.article-entry', 'a.article-gallery-item');
+          initPswp('.article-gallery', 'a.article-gallery-item');
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+        
+<script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+
+  var commentConfigKeys = ["valine"];
+  var commentConfig = {
+    valine: {
+      enable: true,
+      load: () => {
+        const container = document.querySelector('.valine-comment');
+        if (!container) return;
+        if (container.style.display === 'block') return; // already loaded
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https://npm.webcache.cn/valine@1.5.1/dist/Valine.min.js',
+          'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE+s5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn'
+        );
+        script.onload = () => {
+          var GUEST_INFO = ['nick', 'mail', 'link'];
+          var guest_info = 'nick,mail,link'.split(',').filter((item) => {
+            return GUEST_INFO.indexOf(item) > -1
+          });
+          var recordIP = JSON.parse('true');
+          var highlight = JSON.parse('true');
+          var visitor = JSON.parse('false');
+          var serverURLs = undefined;
+
+          if (window.Valine) {
+            new Valine({
+              el: '.valine-comment',
+              appId: "pe1tLrXKeT4Uikj7EGypMYpc-gzGzoHsz",
+              appKey: "mrjQvd77jFLFaqNgJwrpUbOn",
+              placeholder: "Just go go",
+              pageSize: '10',
+              avatar: 'monsterid',
+              lang: document.documentElement.lang || 'en',
+              recordIP: recordIP,
+              highlight: highlight,
+              visitor: visitor,
+              requiredFields: guest_info,
+              path: window.location.pathname,
+              serverURLs
+            });
+          }
+        };
+        document.head.appendChild(script);
+      }
+    },
+  }
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    // 1. 首先检查localStorage中是否有保存的评论类型
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    // 2. 如果localStorage中有值且对应的评论系统可用，就使用它
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    // 3. 如果localStorage无效，检查配置的默认评论系统
+    if (!defaultComment) {
+      var configDefault = 'valine';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    // 4. 如果前两项都无效，按指定顺序找到第一个可用的评论系统
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false
+    };
+
+    // 隐藏所有评论容器
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    // 按需加载评论系统
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        // 如果已加载，只需显示对应容器
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      // 根据类型加载对应的脚本
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    // 评论组件选择器
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      // 获取要加载的评论系统类型
+      const commentType = item.getAttribute('data-selector');
+
+      // 隐藏所有评论系统
+      hideAllComments();
+
+      // 加载选中的评论系统
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      // 评论组件选择器点击事件
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          // 保存选择器状态
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          // 切换选中状态
+          changeActiveCommentItems(item);
+        });
+      }
+
+      // 检查是否需要加载默认评论系统
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script>
+
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.11.1' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+
+
+
+  </body>
+  </html>

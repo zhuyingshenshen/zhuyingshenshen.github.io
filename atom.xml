@@ -70,6 +70,31 @@
   </entry>
   
   <entry>
+    <title>java基础</title>
+    <link href="http://example.com/2025/07/10/Java%20%E5%9F%BA%E7%A1%80/"/>
+    <id>http://example.com/2025/07/10/Java%20%E5%9F%BA%E7%A1%80/</id>
+    <published>2025-07-09T16:00:00.000Z</published>
+    <updated>2026-01-03T07:21:10.808Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Day1&quot;&gt;&lt;a href=&quot;#Day1&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="http://example.com/categories/java/"/>
+    
+    
+    <category term="java" scheme="http://example.com/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>java介绍</title>
     <link href="http://example.com/2025/07/10/java/"/>
     <id>http://example.com/2025/07/10/java/</id>
@@ -90,9 +115,9 @@
     <category term="java" scheme="http://example.com/categories/java/"/>
     
     
-    <category term="技术" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF/"/>
-    
     <category term="java" scheme="http://example.com/tags/java/"/>
+    
+    <category term="技术" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
