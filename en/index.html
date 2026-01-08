@@ -299,10 +299,12 @@
       <h2 class="post-title">「城⻝记」-基于redis的本地⽣活点评系统</h2>
       <article class="post-article">
           城食记 (ChengShiJi)：Redis 在高并发场景下的 6 大核心应用实战
-项目背景：「城食记」是我在深入学习 Java 高并发编程后，独立设计并实现的一个本地生活服务平台（类似大众点评 &amp;#x2F; 美团）。在开发过程中，为了解决高并发下的热点数据查询、库存超卖、用户状态管理等问题，我将 Redis 的应用深度融入到了业务架构中。本文将剥离业务逻辑，复盘我在该项目中基于 Redis 的核心技术选型与解决方案。
+项目背景：「城食记」是我在深入学习 Java 高并发编程后，设计并实现的一个本地生活服务平台（类似大众点评 &amp;#x2F; 美团）。在开发过程中，为了解决高并发下的热点数据查询、库存超卖、用户状态管理等问题，我将 Redis 的应用深度融入到了业务架构中。
 
 
-用户登录与状态管理：基于 Token 的分布式 Session在单体应用中，我们习惯用 HttpSession 存储用户状态。但在「城食记」的设计中，为了支持分布式部署和水
+用户登录与状态管理：基于 Token 的分布式 Session在单体应用中，我们习惯用 HttpSession 存储用户状态。但在「城食记」的设计中，为了支持分布式部署和水平扩展，我采用了 Redis + Token 的无状态登录方案。
+核心流程
+发送验证
       </article>
     </div>
   </div>
@@ -436,7 +438,7 @@ byte、short、char —&amp;gt; int —&amp;gt;long —&amp;gt;float —&amp;gt;
   <div class="post-wrap left" data-aos="fade-up">
       <a class="post-link" href="/en/2013/12/24/hello-world/" aria-label="Hello World" title="Hello World"></a>
     <div class="post-cover left">
-          <img data-src="https://ooo.0x0.ooo/2024/11/25/OH2uDx.jpg" data-sizes="auto" alt="Hello World" class="lazyload">
+          <img data-src="https://ooo.0x0.ooo/2024/11/28/OLMQwF.webp" data-sizes="auto" alt="Hello World" class="lazyload">
     </div>
     <div class="post-info">
       <div class="post-meta">
