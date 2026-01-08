@@ -42,6 +42,33 @@
   </entry>
   
   <entry>
+    <title>java介绍</title>
+    <link href="http://example.com/2025/07/10/java/"/>
+    <id>http://example.com/2025/07/10/java/</id>
+    <published>2025-07-09T16:00:00.000Z</published>
+    <updated>2026-01-03T06:37:18.269Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Java-全面介绍&quot;&gt;&lt;a href=&quot;#Java-全面介绍&quot; class=&quot;headerlink&quot; title=&quot;Java 全面介绍&quot;&gt;&lt;/a&gt;Java 全面介绍&lt;/h1&gt;&lt;p&gt;Java 是由 Sun Microsystems（后被 Oracle 收购）于</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="http://example.com/categories/java/"/>
+    
+    
+    <category term="技术" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="java" scheme="http://example.com/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>java基础</title>
     <link href="http://example.com/2025/07/10/Javabasic/"/>
     <id>http://example.com/2025/07/10/Javabasic/</id>
@@ -67,38 +94,11 @@
   </entry>
   
   <entry>
-    <title>java介绍</title>
-    <link href="http://example.com/2025/07/10/java/"/>
-    <id>http://example.com/2025/07/10/java/</id>
-    <published>2025-07-09T16:00:00.000Z</published>
-    <updated>2026-01-03T06:37:18.269Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Java-全面介绍&quot;&gt;&lt;a href=&quot;#Java-全面介绍&quot; class=&quot;headerlink&quot; title=&quot;Java 全面介绍&quot;&gt;&lt;/a&gt;Java 全面介绍&lt;/h1&gt;&lt;p&gt;Java 是由 Sun Microsystems（后被 Oracle 收购）于</summary>
-        
-      
-    
-    
-    
-    <category term="java" scheme="http://example.com/categories/java/"/>
-    
-    
-    <category term="java" scheme="http://example.com/tags/java/"/>
-    
-    <category term="技术" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF/"/>
-    
-  </entry>
-  
-  <entry>
     <title>leetcodeHot100</title>
     <link href="http://example.com/2024/05/23/leetcodehot/"/>
     <id>http://example.com/2024/05/23/leetcodehot/</id>
     <published>2024-05-22T16:00:00.000Z</published>
-    <updated>2026-01-07T02:59:02.912Z</updated>
+    <updated>2026-01-08T06:01:33.573Z</updated>
     
     
       
