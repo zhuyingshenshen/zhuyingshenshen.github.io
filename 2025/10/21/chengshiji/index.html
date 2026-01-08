@@ -1,0 +1,884 @@
+  <!DOCTYPE html>
+  <html lang="zh-CN"  
+      data-theme-mode="auto"
+  >
+  <head>
+  <meta charset="utf-8">
+  
+  
+  
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_4k4bc36ef96';window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)","en":"Copy successfully (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","en":"Copy failed (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'http://example.com';window.REIMU_CONFIG.i18n_languages = ["en"];</script>
+  <title>
+    「城⻝记」-基于redis的本地⽣活点评系统 | etovo
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="城食记 (ChengShiJi)：Redis 在高并发场景下的 6 大核心应用实战 项目背景：「城食记」是我在深入学习 Java 高并发编程后，独立设计并实现的一个本地生活服务平台（类似大众点评 &#x2F; 美团）。在开发过程中，为了解决高并发下的热点数据查询、库存超卖、用户状态管理等问题，我将 Redis 的应用深度融入到了业务架构中。本文将剥离业务逻辑，复盘我在该项目中基于 Redis 的核">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「城⻝记」-基于redis的本地⽣活点评系统">
+<meta property="og:url" content="http://example.com/2025/10/21/chengshiji/index.html">
+<meta property="og:site_name" content="etovo">
+<meta property="og:description" content="城食记 (ChengShiJi)：Redis 在高并发场景下的 6 大核心应用实战 项目背景：「城食记」是我在深入学习 Java 高并发编程后，独立设计并实现的一个本地生活服务平台（类似大众点评 &#x2F; 美团）。在开发过程中，为了解决高并发下的热点数据查询、库存超卖、用户状态管理等问题，我将 Redis 的应用深度融入到了业务架构中。本文将剥离业务逻辑，复盘我在该项目中基于 Redis 的核">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-10-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-08T11:29:21.081Z">
+<meta property="article:author" content="QET">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="技术">
+<meta property="article:tag" content="项目">
+<meta name="twitter:card" content="summary">
+    <link rel="alternate" href="/atom.xml" title="etovo" type="application/atom+xml">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL&#x2F;toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx&#x2F;1oA&#x2F;0l8ysE" crossorigin="anonymous">
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
+
+<meta name="generator" content="Hexo 8.0.0"></head>
+
+  <body>
+      <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+           M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script>
+<div id="copy-tooltip"></div>
+<div id="heatmap-tooltip"></div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation">
+        <a class="main-nav-link-wrap" href="/">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">首页</span>
+        </span>
+        <a class="main-nav-link-wrap" href="/archives">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">归档</span>
+        </span>
+        <a class="main-nav-link-wrap" href="/about">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">关于</span>
+        </span>
+        <a class="main-nav-link-wrap" href="/friend">
+            <div class="main-nav-icon icon rotate">
+                &#xe62b;
+            </div>
+          <span class="main-nav-link">友链</span>
+        </span>
+    <a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation">
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" aria-label="RSS 订阅" target="_blank"></a>
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索" aria-label="搜索"></a>
+  </nav>
+    <nav id="i18n-nav" aria-label="Language selection">
+      <div class="custom-dropdown">
+        <div class="select-selected" id="select-selected" role="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language menu">
+          <span id="nav-language-btn" class="nav-icon" style="padding: 0 20px 0 0"></span>
+          <span id="selected-lang">简体中文</span>
+        </div>
+        <ul class="select-items" id="select-items" role="listbox" aria-label="Languages">
+            <li data-value="zh-CN" role="option" class="selected" aria-selected="true">简体中文</li>
+            <li data-value="en" role="option" aria-selected="false">English</li>
+        </ul>
+      </div>
+      <script>
+        var selectSelected = document.getElementById("select-selected");
+        var selectedLang = document.getElementById("selected-lang");
+        var selectItems = document.getElementById("select-items");
+        var selectOptions = selectItems.querySelectorAll("li");
+
+        selectSelected.addEventListener("click", () => {
+          selectItems.classList.toggle("show");
+          var expanded = selectSelected.getAttribute("aria-expanded") === "true";
+          selectSelected.setAttribute("aria-expanded", (!expanded).toString());
+        });
+
+        selectOptions.forEach((item) => {
+          item.addEventListener("click", () => {
+            const langMap = {};
+              langMap['zh-CN'] = '/2025/10/21/chengshiji/';
+              langMap['en'] = '/en/2025/10/21/chengshiji/';
+            selectedLang.textContent = item.textContent;
+            selectItems.classList.remove("show");
+            selectOptions.forEach((option) => {
+              option.classList.remove("selected");
+            });
+            item.classList.add("selected");
+            window.location = langMap[item.dataset.value];
+          });
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!event.target.closest(".custom-dropdown")) {
+            selectItems.classList.remove("show");
+            selectSelected.setAttribute("aria-expanded", "false");
+          }
+        });
+      </script>
+    </nav>
+</div>
+<header id="header" aria-label="Site header">
+    <picture></picture>
+    <img  fetchpriority="high" src="https://ooo.0x0.ooo/2024/11/22/OH0b7F.webp" alt="「城⻝记」-基于redis的本地⽣活点评系统">
+  <div id="header-outer">
+    <div id="header-title">
+          <span id="logo">
+            <h1 data-aos="slide-up">「城⻝记」-基于redis的本地⽣活点评系统</h1>
+          </span>
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+        </h2>
+    </div>
+  </div>
+</header>
+
+        <div id="content" aria-label="Page content" class="sidebar-left"  >
+          <aside id="sidebar" aria-label="Sidebar">
+  <div class="sidebar-wrapper-container sticky">
+  <div class="sidebar-wrapper">
+    <div class="sidebar-wrap" data-aos="fade-up">
+          <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%8E%E9%A3%9F%E8%AE%B0-ChengShiJi-%EF%BC%9ARedis-%E5%9C%A8%E9%AB%98%E5%B9%B6%E5%8F%91%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84-6-%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98"><span class="toc-number">1.</span> <span class="toc-text">城食记 (ChengShiJi)：Redis 在高并发场景下的 6 大核心应用实战</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E4%B8%8E%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%EF%BC%9A%E5%9F%BA%E4%BA%8E-Token-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F-Session"><span class="toc-number">1.1.</span> <span class="toc-text">用户登录与状态管理：基于 Token 的分布式 Session</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">核心流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E4%BA%AE%E7%82%B9"><span class="toc-number">1.1.2.</span> <span class="toc-text">技术亮点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%97%E9%93%BA%E7%BC%93%E5%AD%98%EF%BC%9A%E8%A7%A3%E5%86%B3%E4%B8%89%E5%A4%A7%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">店铺缓存：解决三大缓存问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F-Cache-Penetration"><span class="toc-number">1.2.1.</span> <span class="toc-text">缓存穿透 (Cache Penetration)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF-Cache-Breakdown"><span class="toc-number">1.2.2.</span> <span class="toc-text">缓存击穿 (Cache Breakdown)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9-Cache-Avalanche"><span class="toc-number">1.2.3.</span> <span class="toc-text">缓存雪崩 (Cache Avalanche)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%9A%E5%9F%BA%E4%BA%8E-Redis-%E7%9A%84%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="toc-number">1.3.</span> <span class="toc-text">分布式锁：基于 Redis 的并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E6%98%93%E7%89%88%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="toc-number">1.3.1.</span> <span class="toc-text">简易版分布式锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E5%96%84%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81-Redisson"><span class="toc-number">1.3.2.</span> <span class="toc-text">完善的分布式锁 (Redisson)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%B9%E8%B5%9E%E4%B8%8E%E6%8E%92%E8%A1%8C%E6%A6%9C%EF%BC%9AZSet-%E7%9A%84%E5%A6%99%E7%94%A8"><span class="toc-number">1.4.</span> <span class="toc-text">点赞与排行榜：ZSet 的妙用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%80%89%E6%8B%A9"><span class="toc-number">1.4.1.</span> <span class="toc-text">数据结构选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%93%8D%E4%BD%9C"><span class="toc-number">1.4.2.</span> <span class="toc-text">核心操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E5%88%B0%E5%8A%9F%E8%83%BD%EF%BC%9ABitmap-%E4%BD%8D%E5%9B%BE"><span class="toc-number">1.5.</span> <span class="toc-text">签到功能：Bitmap 位图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8-Bitmap%EF%BC%9F"><span class="toc-number">1.5.1.</span> <span class="toc-text">为什么用 Bitmap？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.5.2.</span> <span class="toc-text">核心实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%92%E6%9D%80%E4%B8%8E%E5%BC%82%E6%AD%A5%E4%B8%8B%E5%8D%95%EF%BC%9AStream-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="toc-number">1.6.</span> <span class="toc-text">秒杀与异步下单：Stream 消息队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%B5%81%E7%A8%8B-1"><span class="toc-number">1.6.1.</span> <span class="toc-text">核心流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E4%BB%B7%E5%80%BC"><span class="toc-number">1.6.2.</span> <span class="toc-text">技术价值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93"><span class="toc-number">1.7.</span> <span class="toc-text">项目总结</span></a></li></ol></li></ol>
+</div>
+</div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="QET" class="lazyload">
+  <div class="sidebar-author-name">QET</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">2</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">6</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+    </div>
+  </div>
+  <div class="sidebar-widget">
+  </div>
+  </div>
+</aside>
+
+          <section id="main" aria-label="Main content"><article id="post-chengshiji" class="h-entry article" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <span class="article-date-link icon-calendar" data-aos="zoom-in">
+    <time datetime="2025-10-20T16:00:00.000Z" itemprop="datePublished">2025-10-21</time>
+    <time style="display: none;" id="post-update-time">2026-01-08</time>
+  </span>
+</div>
+
+    </div>
+    
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+        <h1 id="城食记-ChengShiJi-：Redis-在高并发场景下的-6-大核心应用实战"><a href="#城食记-ChengShiJi-：Redis-在高并发场景下的-6-大核心应用实战" class="headerlink" title="城食记 (ChengShiJi)：Redis 在高并发场景下的 6 大核心应用实战"></a>城食记 (ChengShiJi)：Redis 在高并发场景下的 6 大核心应用实战</h1><blockquote>
+<p><strong>项目背景</strong>：「城食记」是我在深入学习 Java 高并发编程后，独立设计并实现的一个本地生活服务平台（类似大众点评 &#x2F; 美团）。在开发过程中，为了解决高并发下的热点数据查询、库存超卖、用户状态管理等问题，我将 Redis 的应用深度融入到了业务架构中。本文将剥离业务逻辑，复盘我在该项目中基于 Redis 的核心技术选型与解决方案。</p>
+</blockquote>
+<hr>
+<h2 id="用户登录与状态管理：基于-Token-的分布式-Session"><a href="#用户登录与状态管理：基于-Token-的分布式-Session" class="headerlink" title="用户登录与状态管理：基于 Token 的分布式 Session"></a>用户登录与状态管理：基于 Token 的分布式 Session</h2><p>在单体应用中，我们习惯用 <code>HttpSession</code> 存储用户状态。但在「城食记」的设计中，为了支持分布式部署和水平扩展，我采用了 <strong>Redis + Token</strong> 的无状态登录方案。</p>
+<h3 id="核心流程"><a href="#核心流程" class="headerlink" title="核心流程"></a>核心流程</h3><ol>
+<li><p><strong>发送验证码</strong>：用户输入手机号，后端生成验证码存入 Redis（Key: <code>login:code:{phone}</code>），设置 5 分钟过期。</p>
+</li>
+<li><p>登录校验</p>
+<p>：</p>
+<ul>
+<li>校验手机号和 Redis 中的验证码。</li>
+<li>若用户不存在则自动注册。</li>
+<li>生成 <strong>UUID</strong> 作为 Token。</li>
+<li>将用户信息（UserDTO）转为 Hash 结构存入 Redis（Key: <code>login:token:{token}</code>），设置 30 分钟过期。</li>
+</ul>
+</li>
+<li><p>状态保持</p>
+<p>：</p>
+<ul>
+<li>前端获取 Token 后存储在 LocalStorage，并在后续请求头（Header）中携带。</li>
+<li>后端通过拦截器（Interceptor）解析 Header 中的 Token，从 Redis 获取用户信息并存入 <code>ThreadLocal</code>，供后续业务使用。</li>
+</ul>
+</li>
+</ol>
+<h3 id="技术亮点"><a href="#技术亮点" class="headerlink" title="技术亮点"></a>技术亮点</h3><ul>
+<li><strong>无状态设计</strong>：服务端不保存用户状态，完全依赖 Redis，易于水平扩展。</li>
+<li><strong>安全性</strong>：Token 设置过期时间，即使泄露也有有效期限制。</li>
+</ul>
+<hr>
+<h2 id="店铺缓存：解决三大缓存问题"><a href="#店铺缓存：解决三大缓存问题" class="headerlink" title="店铺缓存：解决三大缓存问题"></a>店铺缓存：解决三大缓存问题</h2><p>店铺详情页是「城食记」的高频访问场景，直接查询数据库压力巨大。我在项目中实现了多级缓存策略，并针对经典的缓存问题设计了对应的解决方案。</p>
+<h3 id="缓存穿透-Cache-Penetration"><a href="#缓存穿透-Cache-Penetration" class="headerlink" title="缓存穿透 (Cache Penetration)"></a>缓存穿透 (Cache Penetration)</h3><ul>
+<li><p><strong>问题</strong>：黑客或恶意用户频繁请求不存在的 ID（如 <code>-1</code>），导致请求直接打穿缓存到数据库。</p>
+</li>
+<li><p>我的解决方案：缓存空对象。</p>
+<ul>
+<li>当数据库查询为空时，仍将该 Key 存入 Redis，Value 为空字符串 <code>&quot;&quot;</code>，并设置较短的过期时间（如 1 分钟）。</li>
+<li>后续请求该 ID 会直接命中 Redis 的空值，保护数据库。</li>
+</ul>
+</li>
+</ul>
+<h3 id="缓存击穿-Cache-Breakdown"><a href="#缓存击穿-Cache-Breakdown" class="headerlink" title="缓存击穿 (Cache Breakdown)"></a>缓存击穿 (Cache Breakdown)</h3><ul>
+<li><p><strong>问题</strong>：一个热点 Key（如超级大 V 的店铺）突然过期，此时大量并发请求涌入，瞬间压垮数据库。</p>
+</li>
+<li><p>我的解决方案 A：互斥锁 (Mutex Lock)</p>
+<ul>
+<li>利用 Redis 的 <code>SETNX</code> 实现分布式锁。</li>
+<li>只有获取到锁的线程能去查询数据库并重建缓存，其他线程等待重试。</li>
+</ul>
+</li>
+<li><p>我的解决方案 B：逻辑过期 (Logical Expire)</p>
+<p> —— </p>
+<p>项目最终采用方案</p>
+<ul>
+<li>缓存数据不过期（TTL &#x3D; -1），但在 Value 中嵌入一个过期时间字段。</li>
+<li>线程查询时发现逻辑过期，直接返回旧数据，并开启一个独立线程（线程池）去后台重建缓存。</li>
+<li><strong>优点</strong>：无锁，性能极高，不阻塞用户请求。</li>
+</ul>
+</li>
+</ul>
+<h3 id="缓存雪崩-Cache-Avalanche"><a href="#缓存雪崩-Cache-Avalanche" class="headerlink" title="缓存雪崩 (Cache Avalanche)"></a>缓存雪崩 (Cache Avalanche)</h3><ul>
+<li><strong>问题</strong>：大量 Key 在同一时间过期。</li>
+<li><strong>我的解决方案</strong>：给缓存过期时间添加 <strong>随机值</strong>（Random TTL），分散过期时间点。</li>
+</ul>
+<hr>
+<h2 id="分布式锁：基于-Redis-的并发控制"><a href="#分布式锁：基于-Redis-的并发控制" class="headerlink" title="分布式锁：基于 Redis 的并发控制"></a>分布式锁：基于 Redis 的并发控制</h2><p>在秒杀、库存扣减等场景中，单机锁（Synchronized&#x2F;ReentrantLock）失效，必须使用分布式锁。</p>
+<h3 id="简易版分布式锁"><a href="#简易版分布式锁" class="headerlink" title="简易版分布式锁"></a>简易版分布式锁</h3><p>利用 <code>SETNX</code> (Set If Not Exists) 命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET lock:key unique_id NX PX 10000</span><br></pre></td></tr></table></figure>
+
+<p><code>NX</code>：不存在才设置。</p>
+<p><code>PX</code>：自动过期时间（防止死锁）。</p>
+<h3 id="完善的分布式锁-Redisson"><a href="#完善的分布式锁-Redisson" class="headerlink" title="完善的分布式锁 (Redisson)"></a>完善的分布式锁 (Redisson)</h3><p>手写 Lua 脚本虽然可行，但维护成本高。在「城食记」中，我引入了 <strong>Redisson</strong> 框架，它提供了更强大的功能：</p>
+<ul>
+<li><strong>可重入锁</strong>：利用 Hash 记录线程 ID 和重入次数。</li>
+<li><strong>锁续期 (WatchDog)</strong>：如果业务执行时间超过锁的过期时间，Redisson 会自动延长锁的有效期，防止锁提前释放。</li>
+<li><strong>公平锁</strong>：保证请求的顺序性。</li>
+</ul>
+<hr>
+<h2 id="点赞与排行榜：ZSet-的妙用"><a href="#点赞与排行榜：ZSet-的妙用" class="headerlink" title="点赞与排行榜：ZSet 的妙用"></a>点赞与排行榜：ZSet 的妙用</h2><p>点赞功能需要支持：点赞 &#x2F; 取消、按时间排序显示点赞列表、统计点赞数。</p>
+<h3 id="数据结构选择"><a href="#数据结构选择" class="headerlink" title="数据结构选择"></a>数据结构选择</h3><p>我选择了 <strong>ZSet (Sorted Set)</strong> 来实现这一功能：</p>
+<ul>
+<li><strong>Key</strong>: <code>blog:liked:{blogId}</code></li>
+<li><strong>Value (Member)</strong>: <code>userId</code></li>
+<li><strong>Score</strong>: <code>System.currentTimeMillis()</code> (时间戳)</li>
+</ul>
+<h3 id="核心操作"><a href="#核心操作" class="headerlink" title="核心操作"></a>核心操作</h3><ul>
+<li><strong>点赞</strong>：<code>ZADD</code>（添加用户 ID 和当前时间戳）。</li>
+<li><strong>取消点赞</strong>：<code>ZREM</code>（移除用户 ID）。</li>
+<li><strong>判断是否点赞</strong>：<code>ZSCORE</code>（返回 null 表示未点赞）。</li>
+<li><strong>点赞排行榜</strong>：<code>ZREVRANGE</code>（按 Score 倒序排列，即最新点赞在前）。</li>
+<li><strong>点赞数</strong>：<code>ZCARD</code>（获取集合元素数量）。</li>
+</ul>
+<hr>
+<h2 id="签到功能：Bitmap-位图"><a href="#签到功能：Bitmap-位图" class="headerlink" title="签到功能：Bitmap 位图"></a>签到功能：Bitmap 位图</h2><p>用户签到是一个典型的 “存粹记录状态” 的场景，且数据量极大。</p>
+<h3 id="为什么用-Bitmap？"><a href="#为什么用-Bitmap？" class="headerlink" title="为什么用 Bitmap？"></a>为什么用 Bitmap？</h3><p>如果用关系型数据库存，一个用户一年 365 条记录，数据量会非常大。</p>
+<p>在「城食记」中，我使用了 <strong>Bitmap</strong>，用一个比特位（bit）表示一天的状态（0 未签，1 已签）。</p>
+<ul>
+<li>一年 365 天 &#x3D; 365 bits ≈ <strong>46 Bytes</strong>。</li>
+<li>极大节省内存空间。</li>
+</ul>
+<h3 id="核心实现"><a href="#核心实现" class="headerlink" title="核心实现"></a>核心实现</h3><ul>
+<li><p><strong>Key</strong>: <code>sign:{userId}:{yyyyMM}</code></p>
+</li>
+<li><p><strong>Offset</strong>: <code>dayOfMonth - 1</code> (当月的第几天，从 0 开始)</p>
+</li>
+<li><p><strong>签到</strong>：<code>SETBIT key offset 1</code></p>
+</li>
+<li><p>统计连续签到天数</p>
+<p>：</p>
+<ul>
+<li>使用 <code>BITFIELD</code> 命令读取当月截至今天的所有 bit 位。</li>
+<li>返回一个十进制数字，通过位运算（<code>&amp; 1</code> 和 <code>&gt;&gt; 1</code>）从后往前遍历，统计末尾连续 1 的个数。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="秒杀与异步下单：Stream-消息队列"><a href="#秒杀与异步下单：Stream-消息队列" class="headerlink" title="秒杀与异步下单：Stream 消息队列"></a>秒杀与异步下单：Stream 消息队列</h2><p>秒杀业务的核心挑战是高并发读写和超卖问题。</p>
+<h3 id="核心流程-1"><a href="#核心流程-1" class="headerlink" title="核心流程"></a>核心流程</h3><ol>
+<li><p><strong>校验</strong>：用户资格及库存预判断（Redis）。</p>
+</li>
+<li><p><strong>扣减库存</strong>：利用 Redis 的 <code>DECR</code> 原子操作扣减库存。</p>
+</li>
+<li><p>异步下单</p>
+<p>：</p>
+<ul>
+<li>传统做法是直接操作数据库创建订单，容易造成拥堵。</li>
+<li><strong>优化</strong>：将下单信息（用户 ID、商品 ID）发送到 <strong>Redis Stream</strong> 队列。</li>
+<li>后台开启一个线程（消费者），从 Stream 中拉取消息，异步写入 MySQL 创建订单。</li>
+</ul>
+</li>
+</ol>
+<h3 id="技术价值"><a href="#技术价值" class="headerlink" title="技术价值"></a>技术价值</h3><ul>
+<li><strong>削峰填谷</strong>：瞬间的高并发写入变成了队列的平稳消费。</li>
+<li><strong>解耦</strong>：秒杀服务只负责资格校验和入队，订单服务负责落库。</li>
+</ul>
+<h2 id="项目总结"><a href="#项目总结" class="headerlink" title="项目总结"></a>项目总结</h2><p>通过「城食记」这个项目，我不仅仅是完成了业务功能的开发，更重要的是将 Redis 的各种数据结构和特性深度结合到了实际场景中：</p>
+<ol>
+<li><strong>缓存设计</strong>不仅仅是 <code>set</code> 和 <code>get</code>，更重要的是解决一致性和异常问题（穿透、击穿、雪崩）。</li>
+<li><strong>数据结构选型</strong>的重要性：String 做缓存，Hash 存对象，ZSet 做排序和计数，Bitmap 做海量状态压缩，Stream 做消息队列。</li>
+<li><strong>分布式思维</strong>：在多机部署环境下，锁、Session、事务都需要特殊的处理机制。</li>
+</ol>
+
+    </div>
+    <footer class="article-footer">
+        <a data-aos="zoom-in" href="/2025/10/21/chengshiji/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/2025/10/21/chengshiji/" itemprop="commentCount"></span>
+          留言
+        </a>
+        <a class="article-category-link" href="/categories/java/" title="java" data-aos="zoom-in">java</a>
+
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/java/" rel="tag" title="java">java</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag" title="技术">技术</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E9%A1%B9%E7%9B%AE/" rel="tag" title="项目">项目</a></li></ul>
+
+    </footer>
+  </div>
+    <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
+    <div class="article-nav-link-wrap right">
+        <img data-src="https://ooo.0x0.ooo/2024/11/22/OH0b7F.webp" data-sizes="auto" alt="Spintboot介绍" class="lazyload">
+      <a href="/2025/07/11/springboot/" aria-label="后一篇: Spintboot介绍"  title="后一篇: Spintboot介绍"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+          Spintboot介绍
+      </h3>
+    </div>
+  </nav>
+
+</article>
+
+  <section id="comments" data-aos="fade-up">
+    <div class="comment-header">
+        
+      <h2 class="comment-title">说些什么吧！</h2>
+      <div class="comment-selector">
+        <div class="comment-selector-wrap">
+            <div class="selector-item" data-selector="valine">
+              <span>valine</span>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="comment-content">
+          <div class="comment valine-comment" data-aos="fade-up"
+            id="valine-comment">
+          </div>
+    </div>
+  </section>
+
+</section>
+        </div>
+        <footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    <div>
+      <span class="icon-copyright"></span>
+        2024-2026
+        <span class="footer-info-sep rotate"></span>
+      QET
+    </div>
+      <div>
+        <span class="icon-brush"></span>
+        9.9k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        00:43
+      </div>
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+  </div>
+</footer>
+
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap">
+        <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%8E%E9%A3%9F%E8%AE%B0-ChengShiJi-%EF%BC%9ARedis-%E5%9C%A8%E9%AB%98%E5%B9%B6%E5%8F%91%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84-6-%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98"><span class="toc-number">1.</span> <span class="toc-text">城食记 (ChengShiJi)：Redis 在高并发场景下的 6 大核心应用实战</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E4%B8%8E%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%EF%BC%9A%E5%9F%BA%E4%BA%8E-Token-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F-Session"><span class="toc-number">1.1.</span> <span class="toc-text">用户登录与状态管理：基于 Token 的分布式 Session</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">核心流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E4%BA%AE%E7%82%B9"><span class="toc-number">1.1.2.</span> <span class="toc-text">技术亮点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%97%E9%93%BA%E7%BC%93%E5%AD%98%EF%BC%9A%E8%A7%A3%E5%86%B3%E4%B8%89%E5%A4%A7%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">店铺缓存：解决三大缓存问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F-Cache-Penetration"><span class="toc-number">1.2.1.</span> <span class="toc-text">缓存穿透 (Cache Penetration)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF-Cache-Breakdown"><span class="toc-number">1.2.2.</span> <span class="toc-text">缓存击穿 (Cache Breakdown)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9-Cache-Avalanche"><span class="toc-number">1.2.3.</span> <span class="toc-text">缓存雪崩 (Cache Avalanche)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%9A%E5%9F%BA%E4%BA%8E-Redis-%E7%9A%84%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="toc-number">1.3.</span> <span class="toc-text">分布式锁：基于 Redis 的并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E6%98%93%E7%89%88%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="toc-number">1.3.1.</span> <span class="toc-text">简易版分布式锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E5%96%84%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81-Redisson"><span class="toc-number">1.3.2.</span> <span class="toc-text">完善的分布式锁 (Redisson)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%B9%E8%B5%9E%E4%B8%8E%E6%8E%92%E8%A1%8C%E6%A6%9C%EF%BC%9AZSet-%E7%9A%84%E5%A6%99%E7%94%A8"><span class="toc-number">1.4.</span> <span class="toc-text">点赞与排行榜：ZSet 的妙用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%80%89%E6%8B%A9"><span class="toc-number">1.4.1.</span> <span class="toc-text">数据结构选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%93%8D%E4%BD%9C"><span class="toc-number">1.4.2.</span> <span class="toc-text">核心操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E5%88%B0%E5%8A%9F%E8%83%BD%EF%BC%9ABitmap-%E4%BD%8D%E5%9B%BE"><span class="toc-number">1.5.</span> <span class="toc-text">签到功能：Bitmap 位图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8-Bitmap%EF%BC%9F"><span class="toc-number">1.5.1.</span> <span class="toc-text">为什么用 Bitmap？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.5.2.</span> <span class="toc-text">核心实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%92%E6%9D%80%E4%B8%8E%E5%BC%82%E6%AD%A5%E4%B8%8B%E5%8D%95%EF%BC%9AStream-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="toc-number">1.6.</span> <span class="toc-text">秒杀与异步下单：Stream 消息队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%B5%81%E7%A8%8B-1"><span class="toc-number">1.6.1.</span> <span class="toc-text">核心流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E4%BB%B7%E5%80%BC"><span class="toc-number">1.6.2.</span> <span class="toc-text">技术价值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93"><span class="toc-number">1.7.</span> <span class="toc-text">项目总结</span></a></li></ol></li></ol>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="QET" class="lazyload">
+  <div class="sidebar-author-name">QET</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">2</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">6</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+          <div class="sidebar-menu-icon icon rotate">
+              &#xe62b;
+          </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+</div>
+</div>
+  </div>
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+</nav>
+
+    </div>
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
+        </div>
+      </div>
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+  
+<script src="/js/generator_search.js" defer></script>
+
+
+
+  <script>
+    var setupFirework = () => {
+      if (!false || !window.matchMedia('(max-width: 768px)').matches) {
+        window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["var(--red-1)","var(--red-2)","var(--red-3)","var(--red-4)"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["var(--red-0)"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'));
+      }
+    }
+  </script>
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js" integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8+pUoWX8n1rgq282T" crossorigin="anonymous" onload="setupFirework()" defer></script>
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+      
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "QET",
+          title: "「城⻝记」-基于redis的本地⽣活点评系统",
+          url: "http://example.com/2025/10/21/chengshiji/",
+          excerpt: "",
+          description: "",
+          stripContent: "城食记 (ChengShiJi)：Redis 在高并发场景下的 6 大核心应用实战 项目背景：「城食记」是我在深入学习 Java 高并发编程后，独立设计并实现的一个本地生活服务平台（类似大众点评 &amp;#x2F; 美团）。在开发过程中，为了解决高并发下的热点数据查询、库存超卖、用户状态管理等问题，我将 Redis 的应用深度融入到了业务架构中。本文将剥离业务逻辑，复盘我在该项目中基于 Redis 的核心技术选型与解决方案。   用户登录与状态管理：基于 Token 的分布式 Session在单体应用",
+          date: "Tue Oct 21 2025 00:00:00 GMT+0800",
+          updated: "Thu Jan 08 2026 19:29:21 GMT+0800",
+          cover: "https://ooo.0x0.ooo/2024/11/22/OH0b7F.webp",
+        };
+      </script>
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+      
+<script src="/js/tabs.js" data-pjax defer></script>
+
+      <script type="module" data-pjax>
+        const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+        const initPswp = (gallery, children) => {
+          if (_$$(`${gallery} ${children}`).length > 0) {
+            new PhotoSwipeLightbox({
+              gallery,
+              children,
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+        }
+        const pswp = () => {
+          initPswp('.article-entry', 'a.article-gallery-item');
+          initPswp('.article-gallery', 'a.article-gallery-item');
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+        
+<script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+
+  var commentConfigKeys = ["valine"];
+  var commentConfig = {
+    valine: {
+      enable: true,
+      load: () => {
+        const container = document.querySelector('.valine-comment');
+        if (!container) return;
+        if (container.style.display === 'block') return; // already loaded
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https://npm.webcache.cn/valine@1.5.1/dist/Valine.min.js',
+          'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE+s5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn'
+        );
+        script.onload = () => {
+          var GUEST_INFO = ['nick', 'mail', 'link'];
+          var guest_info = 'nick,mail,link'.split(',').filter((item) => {
+            return GUEST_INFO.indexOf(item) > -1
+          });
+          var recordIP = JSON.parse('true');
+          var highlight = JSON.parse('true');
+          var visitor = JSON.parse('false');
+          var serverURLs = undefined;
+
+          if (window.Valine) {
+            new Valine({
+              el: '.valine-comment',
+              appId: "pe1tLrXKeT4Uikj7EGypMYpc-gzGzoHsz",
+              appKey: "mrjQvd77jFLFaqNgJwrpUbOn",
+              placeholder: "Just go go",
+              pageSize: '10',
+              avatar: 'monsterid',
+              lang: document.documentElement.lang || 'en',
+              recordIP: recordIP,
+              highlight: highlight,
+              visitor: visitor,
+              requiredFields: guest_info,
+              path: window.location.pathname,
+              serverURLs
+            });
+          }
+        };
+        document.head.appendChild(script);
+      }
+    },
+  }
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    // 1. 首先检查localStorage中是否有保存的评论类型
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    // 2. 如果localStorage中有值且对应的评论系统可用，就使用它
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    // 3. 如果localStorage无效，检查配置的默认评论系统
+    if (!defaultComment) {
+      var configDefault = 'valine';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    // 4. 如果前两项都无效，按指定顺序找到第一个可用的评论系统
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false
+    };
+
+    // 隐藏所有评论容器
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    // 按需加载评论系统
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        // 如果已加载，只需显示对应容器
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      // 根据类型加载对应的脚本
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    // 评论组件选择器
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      // 获取要加载的评论系统类型
+      const commentType = item.getAttribute('data-selector');
+
+      // 隐藏所有评论系统
+      hideAllComments();
+
+      // 加载选中的评论系统
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      // 评论组件选择器点击事件
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          // 保存选择器状态
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          // 切换选中状态
+          changeActiveCommentItems(item);
+        });
+      }
+
+      // 检查是否需要加载默认评论系统
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script>
+
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.11.1' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+
+
+
+  </body>
+  </html>
